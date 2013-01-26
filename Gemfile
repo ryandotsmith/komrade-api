@@ -1,6 +1,8 @@
 source :rubygems
-gem 'sinatra', :require => 'sinatra/base'
-gem 'json'
+
+gem 'mongrel', '1.2.0.pre2'
+gem 'sinatra'
+gem 'heroku-nav', '~> 0.1.24'
 gem 'haml'
-gem "heroku-nav", "~> 0.1.24", :require => 'heroku/nav'
-gem 'thin'
+gem 'pg'
+gem 'sequel'
