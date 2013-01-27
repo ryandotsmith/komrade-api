@@ -30,6 +30,7 @@ class Web < Sinatra::Base
   get "/" do
     halt 403, 'not logged in' unless session[:heroku_sso]
     response.set_cookie('heroku-nav-data', value: session[:heroku_sso])
+    @queue = Kqueue.find(session[:queue_id])
     erb(:index)
   end
 
