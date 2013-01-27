@@ -52,7 +52,6 @@ class Web < Sinatra::Base
     protected!
     req = JSON.parse(request.body.read)
     if queue = KQueue.create(req)
-      puts JSON.dump(queue)
       [201, JSON.dump(queue)]
     else
       [400, JSON.dump(msg: "Unable to provision queue.")]

@@ -15,7 +15,6 @@ module KQueue
       plan: args['plan'],
       callback_url: args['callback_url']
     )[0]
-    puts queue
     {
       id: queue[:token],
       config: {'KOMRADE_URL' => queue_url(queue)},
