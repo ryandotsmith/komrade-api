@@ -10,7 +10,7 @@ module KQueue
   end
 
   def create(args)
-    queue = db[:queues].returning('*').insert(
+    queue = db[:queues].returning.insert(
       heroku_id: args['heroku_id'],
       plan: args['plan'],
       callback_url: args['callback_url']
