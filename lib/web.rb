@@ -23,10 +23,6 @@ class Web < Sinatra::Base
       @auth.credentials == [ENV['HEROKU_USERNAME'], ENV['HEROKU_PASSWORD']]
     end
 
-    def json_body
-      @json_body || (body = request.body.read && JSON.parse(body))
-    end
-
     def sso
       pre_token = params[:id] + ':' + ENV['SSO_SALT'] + ':' + params[:timestamp]
       token = Digest::SHA1.hexdigest(pre_token).to_s
