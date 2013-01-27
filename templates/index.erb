@@ -9,7 +9,7 @@
 	<script src="https://s3.amazonaws.com/assets.heroku.com/boomerang/boomerang.js"></script>
 	<script>
 	  document.addEventListener("DOMContentLoaded", function() {
-	    Boomerang.init({app: @app["name"], addon: 'komrade'});
+	    Boomerang.init({app: <%=@app["name"]%>, addon: 'komrade'});
 	  });
 	</script>
 </head>
