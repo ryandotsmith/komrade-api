@@ -41,7 +41,7 @@ class Web < Sinatra::Base
     halt 403 if params[:timestamp].to_i < (Time.now - 2*60).to_i
     q = KQueue.find(params[:id])
     halt 404 if q.nil?
-    session[:queue_id] = q[:id]
+    session[:queue_id] = q[:token]
     response.set_cookie('heroku-nav-data', value: params['nav-data'])
     session[:heroku_sso] = params['nav-data']
     session[:email] = params['email']
