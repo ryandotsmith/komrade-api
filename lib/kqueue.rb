@@ -23,11 +23,11 @@ module KQueue
   end
 
   def delete(id)
-    db[:queues].where(id: id).delete == 1
+    db[:queues].where(token: id).delete == 1
   end
 
   def change_plan(id, new_plan)
-    db[:queues].where(id: id).update(plan: new_plan) == 1
+    db[:queues].where(token: id).update(plan: new_plan) == 1
   end
 
   def queue_url(q)
