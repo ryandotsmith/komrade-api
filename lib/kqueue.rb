@@ -16,7 +16,7 @@ module KQueue
       callback_url: args['callback_url']
     )[0]
     {
-      id: queue['token'],
+      id: queue[:token],
       config: {'KOMRADE_URL' => queue_url(queue)},
       message: 'Komrade: working for the good of the people.'
     }
@@ -31,7 +31,7 @@ module KQueue
   end
 
   def queue_url(q)
-    "http://komrade:#{q['token']}@service-1.komrade.32k.io"
+    "http://komrade:#{q[:token]}@service-1.komrade.32k.io"
   end
 
   private
