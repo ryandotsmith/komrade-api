@@ -6,6 +6,7 @@ require 'conf'
 require 'utils'
 require 'kqueue'
 require 'errors'
+require 'app'
 
 class Web < Sinatra::Base
   use Rack::Session::Cookie, secret: ENV['SSO_SALT']
