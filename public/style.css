@@ -14,6 +14,7 @@ section#queue-details {
 }
 
 table#queue-summary {
+  border-top: 1px solid black;
   table-layout: fixed;
   width: 500px;
 }
