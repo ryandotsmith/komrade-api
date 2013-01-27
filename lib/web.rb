@@ -8,6 +8,8 @@ require 'kqueue'
 
 class Web < Sinatra::Base
   use Rack::Session::Cookie, secret: ENV['SSO_SALT']
+  set :public_folder, "./public"
+  set :views, "./templates"
 
   helpers do
     def protected!
@@ -22,39 +24,27 @@ class Web < Sinatra::Base
       @auth.provided? && @auth.basic? && @auth.credentials &&
       @auth.credentials == [ENV['HEROKU_USERNAME'], ENV['HEROKU_PASSWORD']]
     end
-
-    def sso
-      pre_token = params[:id] + ':' + ENV['SSO_SALT'] + ':' + params[:timestamp]
-      token = Digest::SHA1.hexdigest(pre_token).to_s
-      halt 403 if token != params[:token]
-      halt 403 if params[:timestamp].to_i < (Time.now - 2*60).to_i
-
-      halt 404 unless session[:resource] = KQueue.exists?(params[:id])
-
-      response.set_cookie('heroku-nav-data', value: params['nav-data'])
-      session[:heroku_sso] = params['nav-data']
-      session[:email]      = params[:email]
-
-      redirect '/'
-    end
   end
 
-  # sso landing page
+  # SSO Index.
   get "/" do
     halt 403, 'not logged in' unless session[:heroku_sso]
-    #response.set_cookie('heroku-nav-data', value: session[:heroku_sso])
-    @resource = session[:resource]
-    @email    = session[:email]
-    haml :index
-  end
-
-  # SSO sign in.
-  get "/heroku/resources/:id" do
-    sso
+    response.set_cookie('heroku-nav-data', value: session[:heroku_sso])
+    erb(:index)
   end
 
   post '/sso/login' do
-    sso
+    pre_token = params[:id] + ':' + ENV['SSO_SALT'] + ':' + params[:timestamp]
+    token = Digest::SHA1.hexdigest(pre_token).to_s
+    halt 403 if token != params[:token]
+    halt 403 if params[:timestamp].to_i < (Time.now - 2*60).to_i
+    q = KQueue.find(params[:id])
+    halt 404 if q.nil?
+    session[:queue_id] = q[:id]
+    response.set_cookie('heroku-nav-data', value: params['nav-data'])
+    session[:heroku_sso] = params['nav-data']
+    session[:email] = params['email']
+    redirect '/'
   end
 
   # Provision

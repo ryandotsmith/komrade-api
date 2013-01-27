@@ -5,8 +5,8 @@ require 'sequel'
 module KQueue
   extend self
 
-  def exists?(id)
-    db[:queues].where(id: id).count > 0
+  def find(id)
+    db[:queues].where(token: id).first
   end
 
   def create(args)
