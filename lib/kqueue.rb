@@ -16,7 +16,7 @@ module KQueue
       callback_url: args['callback_url']
     )[0]
     {
-      id: queue['id'],
+      id: queue['token'],
       config: {'KOMRADE_URL' => queue_url(queue)},
       message: 'Komrade: working for the good of the people.'
     }
