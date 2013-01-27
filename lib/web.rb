@@ -33,6 +33,7 @@ class Web < Sinatra::Base
     response.set_cookie('heroku-nav-data', value: session[:heroku_sso])
     puts(session[:heroku_sso])
     @queue = KQueue.find(session[:queue_id])
+    @app = App.get(@queue[:callback_url])
     erb(:index)
   end
 
