@@ -6,11 +6,49 @@
 	<meta name="description" content="Komrade Dashboard" />
 	<link href="/style.css" rel="stylesheet" type="text/css">
 	<script src="/main.js" type="text/javascript"></script>
+	<script src="https://s3.amazonaws.com/assets.heroku.com/boomerang/boomerang.js"></script>
+	<script>
+	  document.addEventListener("DOMContentLoaded", function() {
+	    Boomerang.init({app: 'foo', addon: 'bar'});
+	  });
+	</script>
 </head>
 <body>
-<ul>
-  <li>Failed Count: <%= @queue[:failed_count] %></li>
-  <li>Job Count: <%= @queue[:job_count] %></li>
-</ul>
+	<section id="header">
+		<h1>Komrade/my-app</h1>
+	</section>
+	<table id="queue-summary">
+		<tr>
+			<td class="label">in</td>
+			<td class="minute-value"><%=@queue[:in_minute]%></td>
+			<td class="hour-value"><%=@queue[:in_hour]%></td>
+			<td class="day-value"><%=@queue[:in_day]%></td>
+		</tr>
+		<tr>
+			<td class="label">out</td>
+			<td class="minute-value"><%=@queue[:out_minute]%></td>
+			<td class="hour-value"><%=@queue[:out_hour]%></td>
+			<td class="day-value"><%=@queue[:out_day]%></td>
+		</tr>
+		<tr>
+			<td class="label">error</td>
+			<td class="minute-value"><%=@queue[:error_minute]%></td>
+			<td class="hour-value"><%=@queue[:error_hour]%></td>
+			<td class="day-value red"><%=@queue[:error_day]%></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td class="time-label">1m</td>
+			<td class="time-label">1hr</td>
+			<td class="time-label">24hr</td>
+		</tr>
+	</table>
+	<span id="sample-label">Failed jobs for last hour.</span>
+	<section id="queue-details">
+		<ul>
+			<li>(3) Kernel.puts("hello.world")</li>
+			<li>(1) User.send_notice(145823)</li>
+		</ul>
+	</section>
 </body>
 </html>

@@ -1,8 +1,50 @@
 body {
-    color:darkslategray;
-    font-size: 1.3em;
-    font-family:helvetica;
-    background-color: white;
+  width: 500px;
+  margin: 10px auto 0 auto;
+  font-family: courier;
+  background-color:#ECECE7;
 }
 
+h1 {
+  color:#174C5B;
+}
 
+section#queue-details {
+  border-top: 1px solid black;
+}
+
+table#queue-summary {
+  table-layout: fixed;
+  width: 500px;
+}
+
+table#queue-summary td {
+  font-size: 2.2em;
+  height: 20px;
+  text-align: center;
+  color:#0F3D48;
+}
+
+table#queue-summary td.red {
+  color:#E96151;
+}
+
+table#queue-summary td span {
+  font-size: 0.8em;
+}
+
+table#queue-summary td.label {
+  width: 50px;
+  font-size: 0.6em;
+  text-align: center;
+  color:#366774;
+}
+
+table#queue-summary td.time-label {
+  text-align: center;
+  font-size: 0.5em;
+  padding-bottom: 20px;
+}
+
+.red {
+}

@@ -5,6 +5,7 @@ require 'heroku/nav'
 require 'conf'
 require 'utils'
 require 'kqueue'
+require 'errors'
 
 class Web < Sinatra::Base
   use Rack::Session::Cookie, secret: ENV['SSO_SALT']
