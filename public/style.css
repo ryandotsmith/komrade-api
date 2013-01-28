@@ -9,12 +9,25 @@ h1 {
   color:#174C5B;
 }
 
+.hidden {
+  display: none;
+}
+
+a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+hr {
+  border: 0.1em solid gray;
+  color: black;
+}
+
 section#queue-details {
   border-top: 1px solid black;
 }
 
 table#queue-summary {
-  border-top: 1px solid black;
   table-layout: fixed;
   width: 500px;
 }
@@ -45,7 +58,4 @@ table#queue-summary td.time-label {
   text-align: center;
   font-size: 0.5em;
   padding-bottom: 20px;
-}
-
-.red {
 }

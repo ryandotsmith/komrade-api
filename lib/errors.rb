@@ -14,8 +14,10 @@ module Errors
   end
 
   def fetch(qid, bucket)
-    r = pg["select * from summarize_failed(?, ?)", qid, bucket].first
-    {r[:count] => JSON.parse(r[:payload]).to_s}
+    pg["select * from summarize_failed(?, ?)", qid, bucket].all.map do |r|
+      payload = JSON.parse(r[:payload])
+      {count: r[:count], payload: payload}
+    end
   end
 
   def pg
