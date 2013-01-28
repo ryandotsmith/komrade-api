@@ -30,10 +30,9 @@ class Web < Sinatra::Base
 
   # SSO Index.
   get "/" do
-    #halt 403, 'not logged in' unless session[:heroku_sso]
-    #response.set_cookie('heroku-nav-data', value: session[:heroku_sso])
-    #@queue = KQueue.find(session[:queue_id])
-    @queue = KQueue.find('cacaca1c-d1b4-432e-b8aa-ce49b89c4e66')
+    halt 403, 'not logged in' unless session[:heroku_sso]
+    response.set_cookie('heroku-nav-data', value: session[:heroku_sso])
+    @queue = KQueue.find(session[:queue_id])
     @errors = Errors.get(@queue[:token])
     @app = App.get(@queue[:callback_url])
     erb(:index)
