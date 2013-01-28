@@ -6,7 +6,7 @@ module KQueue
   extend self
 
   def find(id)
-    db[:queues].where(token: id).first
+    db[:queues].where(token: id).where("deleted_at is null").first
   end
 
   def create(args)
