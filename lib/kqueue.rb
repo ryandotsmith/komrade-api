@@ -5,6 +5,10 @@ require 'sequel'
 module KQueue
   extend self
 
+  def all
+    db[:queues].all
+  end
+
   def find(id)
     db[:queues].where(token: id).where("deleted_at is null").first
   end
