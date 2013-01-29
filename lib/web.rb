@@ -42,7 +42,8 @@ class Web < Sinatra::Base
   end
 
   get "/admin" do
-    @customers = Kqueue.all.map do |q|
+    protect_admin
+    @customers = KQueue.all.map do |q|
       {queue: q, app: App.get(q[:callback_url])}
     end
     erb(:admin)
