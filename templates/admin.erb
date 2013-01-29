@@ -9,20 +9,13 @@
 </head>
 <body>
 	<span id="sample-label">Customers.</span>
-  <table>
-    <% @customers.each do |customer| %>
-      <tr>
-        <td><%= customer[:app] %></td>
-      </tr>
-    <% end %>
-  </table>
+	<table>
+	<% @customers.each do |customer| %>
+	<tr>
+		<td><%= customer[:app] %></td>
+	</tr>
+	<% end %>
+	</table>
 	<hr />
 </body>
-
-<script src="https://s3.amazonaws.com/assets.heroku.com/boomerang/boomerang.js"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    Boomerang.init({app: '<%=@app["name"]%>', addon: 'komrade'});
-  });
-</script>
 </html>
