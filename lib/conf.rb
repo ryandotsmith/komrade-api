@@ -14,4 +14,6 @@ module Conf
   def port; env!("PORT"); end
   def heroku_username; env!("HEROKU_USERNAME"); end
   def heroku_password; env!("HEROKU_PASSWORD"); end
+  def admin_username; env!("ADMIN_USERNAME"); end
+  def admin_password; env!("ADMIN_PASSWORD"); end
 end

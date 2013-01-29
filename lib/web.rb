@@ -26,6 +26,26 @@ class Web < Sinatra::Base
       @auth.provided? && @auth.basic? && @auth.credentials &&
       @auth.credentials == [ENV['HEROKU_USERNAME'], ENV['HEROKU_PASSWORD']]
     end
+
+    def protect_admin
+      unless authorized_admin?
+        response['WWW-Authenticate'] = %(Basic realm="Restricted Area")
+        throw(:halt, [401, "Not authorized\n"])
+      end
+    end
+
+    def authorized_admin?
+      @auth ||=  Rack::Auth::Basic::Request.new(request.env)
+      @auth.provided? && @auth.basic? && @auth.credentials &&
+      @auth.credentials == [Conf.admin_username, Conf.admin_password]
+    end
+  end
+
+  get "/admin" do
+    @customers = Kqueue.all.map do |q|
+      {queue: q, app: App.get(q[:callback_url])}
+    end
+    erb(:admin)
   end
 
   # SSO Index.
