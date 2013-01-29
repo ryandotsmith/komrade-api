@@ -9,15 +9,15 @@
 </head>
 <body>
 	<span id="sample-label">Customers.</span>
+	<hr />
 	<table>
 	<% @customers.each do |customer| %>
 	<tr>
-		<td><%= customer[:queue] %></td>
-		<td><%= customer[:app]["owner_email"] %></td>
+		<td><%= customer[:queue][:in_day] %></td>
 		<td><%= customer[:app]["name"] %></td>
+		<td><%= customer[:app]["owner_email"] %></td>
 	</tr>
 	<% end %>
 	</table>
-	<hr />
 </body>
 </html>

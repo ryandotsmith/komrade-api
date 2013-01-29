@@ -45,7 +45,7 @@ class Web < Sinatra::Base
     protect_admin
     @customers = KQueue.all.map do |q|
       {queue: q, app: App.get(q[:callback_url])}
-    end
+    end.reject {|h| h[:app].nil?}
     erb(:admin)
   end
 
