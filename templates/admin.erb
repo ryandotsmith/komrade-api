@@ -12,7 +12,9 @@
 	<table>
 	<% @customers.each do |customer| %>
 	<tr>
-		<td><%= customer[:app] %></td>
+		<td><%= customer[:queue] %></td>
+		<td><%= customer[:app]["owner_email"] %></td>
+		<td><%= customer[:app]["name"] %></td>
 	</tr>
 	<% end %>
 	</table>
