@@ -52,6 +52,8 @@
 			<li class="errors-minute">
 				(<%= error[:count]%>)
 				<%= error[:payload]["error"]%>
+        -
+				<%= error[:payload]["message"][0..200] %>
 			</li>
 		<% end %>
 		</ul>
@@ -65,6 +67,8 @@
 			<li class="errors-hour">
 				(<%= error[:count]%>)
 				<%= error[:payload]["error"]%>
+        -
+				<%= error[:payload]["message"][0..200] %>
 			</li>
 		<% end %>
 		</ul>
@@ -78,6 +82,8 @@
 			<li class="errors-day">
 				(<%= error[:count]%>)
 				<%= error[:payload]["error"]%>
+        -
+				<%= error[:payload]["message"][0..200] %>
 			</li>
 		<% end %>
 		</ul>
