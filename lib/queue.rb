@@ -2,7 +2,7 @@ require 'securerandom'
 require 'conf'
 require 'sequel'
 
-module KQueue
+module Queue
   extend self
 
   def all

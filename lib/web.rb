@@ -2,9 +2,10 @@ require 'json'
 require 'sinatra/base'
 require 'rack/handler/mongrel'
 require 'heroku/nav'
+
 require 'conf'
 require 'utils'
-require 'kqueue'
+require 'queue'
 require 'errors'
 require 'app'
 
@@ -43,7 +44,7 @@ class Web < Sinatra::Base
 
   get "/admin" do
     protect_admin
-    @customers = KQueue.all.map do |q|
+    @customers = Queue.all.map do |q|
       {queue: q, app: App.get(q[:callback_url])}
     end.reject {|h| h[:app].nil?}
     erb(:admin)
@@ -53,7 +54,7 @@ class Web < Sinatra::Base
   get "/" do
     halt 403, 'not logged in' unless session[:heroku_sso]
     response.set_cookie('heroku-nav-data', value: session[:heroku_sso])
-    @queue = KQueue.find(session[:queue_id])
+    @queue = Queue.find(session[:queue_id])
     @errors = Errors.get(@queue[:token])
     @app = App.get(@queue[:callback_url])
     erb(:index)
@@ -64,7 +65,7 @@ class Web < Sinatra::Base
     token = Digest::SHA1.hexdigest(pre_token).to_s
     halt 403 if token != params[:token]
     halt 403 if params[:timestamp].to_i < (Time.now - 2*60).to_i
-    q = KQueue.find(params[:id])
+    q = Queue.find(params[:id])
     halt 404 if q.nil?
     session[:queue_id] = q[:token]
     response.set_cookie('heroku-nav-data', value: params['nav-data'])
@@ -77,7 +78,7 @@ class Web < Sinatra::Base
   post '/heroku/resources' do
     protected!
     req = JSON.parse(request.body.read)
-    if queue = KQueue.create(req)
+    if queue = Queue.create(req)
       [201, JSON.dump(queue)]
     else
       [400, JSON.dump(msg: "Unable to provision queue.")]
@@ -87,7 +88,7 @@ class Web < Sinatra::Base
   # Deprovision
   delete '/heroku/resources/:id' do
     protected!
-    if KQueue.delete(params[:id])
+    if Queue.delete(params[:id])
       [200, JSON.dump(msg: "OK")]
     else
       [400, JSON.dump(msg: "Unable to delete queue.")]
@@ -98,7 +99,7 @@ class Web < Sinatra::Base
   put '/heroku/resources/:id' do
     protected!
     req = JSON.parse(request.body.read)
-    if KQueue.change_plan(params[:id], req['plan'])
+    if Queue.change_plan(params[:id], req['plan'])
       [200, JSON.dump(msg: "Plan changed.")]
     else
       [400, JSON.dump(msg: "Unable to change plan.")]
