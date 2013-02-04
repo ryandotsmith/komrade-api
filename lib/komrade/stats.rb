@@ -51,7 +51,7 @@ module Komrade
       pg[:jobs].
         where(queue: qid).
         where("locked_at is not null").
-        where("failed_at = 0").
+        where("failed_count = 0").
         where("heartbeat - now() < '1 #{period}'::interval").
         count
     end
