@@ -57,7 +57,7 @@ module Komrade
       response.set_cookie('heroku-nav-data', value: session[:heroku_sso])
       @queue = Queue.find(session[:queue_id])
       @errors = Errors.get(@queue[:token])
-      @app = App.get(@queue[:callback_url])
+      @app = Heroku.get_app(@queue[:callback_url])
       erb(:index)
     end
 
