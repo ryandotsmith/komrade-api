@@ -1,7 +1,6 @@
 require 'json'
 require 'sinatra/base'
 require 'rack/handler/mongrel'
-require 'heroku/nav'
 
 require 'komrade/conf'
 require 'komrade/utils'
@@ -53,8 +52,7 @@ module Komrade
 
     # SSO Index.
     get "/" do
-      halt 403, 'not logged in' unless session[:heroku_sso]
-      response.set_cookie('heroku-nav-data', value: session[:heroku_sso])
+      halt 403, 'not logged in' unless session[:email]
       @queue = Queue.find(session[:queue_id])
       @errors = Errors.get(@queue[:token])
       @app = Heroku.get_app(@queue[:callback_url])
@@ -69,8 +67,6 @@ module Komrade
       q = Queue.find(params[:id])
       halt 404 if q.nil?
       session[:queue_id] = q[:token]
-      response.set_cookie('heroku-nav-data', value: params['nav-data'])
-      session[:heroku_sso] = params['nav-data']
       session[:email] = params['email']
       redirect '/'
     end

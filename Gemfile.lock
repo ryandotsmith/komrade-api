@@ -4,11 +4,6 @@ GEM
     daemons (1.0.10)
     gem_plugin (0.2.3)
     haml (3.1.7)
-    heroku-nav (0.1.24)
-      json
-      rest-client (>= 1.0)
-    json (1.7.6)
-    mime-types (1.19)
     mongrel (1.2.0.pre2)
       daemons (~> 1.0.10)
       gem_plugin (~> 0.2.3)
@@ -16,8 +11,6 @@ GEM
     rack (1.5.0)
     rack-protection (1.3.2)
       rack
-    rest-client (1.6.7)
-      mime-types (>= 1.16)
     sequel (3.43.0)
     sinatra (1.3.3)
       rack (~> 1.3, >= 1.3.6)
@@ -30,7 +23,6 @@ PLATFORMS
 
 DEPENDENCIES
   haml
-  heroku-nav (~> 0.1.24)
   mongrel (= 1.2.0.pre2)
   pg
   sequel
