@@ -11,7 +11,7 @@ module Komrade
         in: _in(queue_id),
         out: out(queue_id),
         error: error(queue_id),
-        lost: lost_jobs(queue_id)
+        lost: lost(queue_id)
       }
     end
 
