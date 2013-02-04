@@ -46,7 +46,11 @@ module Komrade
     get "/admin" do
       protect_admin
       @customers = Queue.all.map do |q|
-        {queue: q, app: Heroku.get_app(q[:callback_url])}
+        {
+          app: Heroku.get_app(q[:callback_url]),
+          queue: q,
+          stats: Stats.all(q[:token])
+        }
       end.reject {|h| h[:app].nil?}
       erb(:admin)
     end
