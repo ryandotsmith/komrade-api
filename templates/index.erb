@@ -25,6 +25,12 @@
 			<td class="day-value"><%=@stats[:out][:day]%></td>
 		</tr>
 		<tr>
+			<td class="label">lost</td>
+			<td class="minute-value"><%=@stats[:lost][:minute]%></td>
+			<td class="hour-value"><%=@stats[:lost][:hour]%></td>
+			<td class="day-value"><%=@stats[:lost][:day]%></td>
+		</tr>
+		<tr>
 			<td class="label">error</td>
 			<td class="minute-value">
 				<a class="error-link" rel="errors-minute"><%=@stats[:error][:minute]%></a>
