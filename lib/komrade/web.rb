@@ -5,6 +5,7 @@ require 'rack/handler/mongrel'
 require 'komrade/conf'
 require 'komrade/utils'
 require 'komrade/queue'
+require 'komrade/stats'
 require 'komrade/errors'
 require 'komrade/heroku'
 
@@ -54,6 +55,7 @@ module Komrade
     get "/" do
       halt 403, 'not logged in' unless session[:email]
       @queue = Queue.find(session[:queue_id])
+      @stats = Stats.all(@queue[:token])
       @errors = Errors.get(@queue[:token])
       @app = Heroku.get_app(@queue[:callback_url])
       erb(:index)

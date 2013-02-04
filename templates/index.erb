@@ -14,26 +14,26 @@
 	<table id="queue-summary">
 		<tr>
 			<td class="label">in</td>
-			<td class="minute-value"><%=@queue[:in_minute]%></td>
-			<td class="hour-value"><%=@queue[:in_hour]%></td>
-			<td class="day-value"><%=@queue[:in_day]%></td>
+			<td class="minute-value"><%=@stats[:in][:minute]%></td>
+			<td class="hour-value"><%=@stats[:in][:hour]%></td>
+			<td class="day-value"><%=@stats[:in][:day]%></td>
 		</tr>
 		<tr>
 			<td class="label">out</td>
-			<td class="minute-value"><%=@queue[:out_minute]%></td>
-			<td class="hour-value"><%=@queue[:out_hour]%></td>
-			<td class="day-value"><%=@queue[:out_day]%></td>
+			<td class="minute-value"><%=@stats[:out][:minute]%></td>
+			<td class="hour-value"><%=@stats[:out][:hour]%></td>
+			<td class="day-value"><%=@stats[:out][:day]%></td>
 		</tr>
 		<tr>
 			<td class="label">error</td>
 			<td class="minute-value">
-				<a class="error-link" rel="errors-minute"><%=@queue[:error_minute]%></a>
+				<a class="error-link" rel="errors-minute"><%=@stats[:error][:minute]%></a>
       			</td>
 			<td class="hour-value">
-				<a class="error-link" rel="errors-hour"><%=@queue[:error_hour]%></a>
+				<a class="error-link" rel="errors-hour"><%=@stats[:error][:hour]%></a>
 			</td>
 			<td class="day-value red">
-        			<a class="error-link" rel="errors-day"><%=@queue[:error_day]%></a>
+        			<a class="error-link" rel="errors-day"><%=@stats[:error][:day]%></a>
 			</td>
 		</tr>
 		<tr>
