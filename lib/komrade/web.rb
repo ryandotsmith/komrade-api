@@ -7,7 +7,7 @@ require 'komrade/conf'
 require 'komrade/utils'
 require 'komrade/queue'
 require 'komrade/errors'
-require 'komrade/app'
+require 'komrade/heroku'
 
 module Komrade
   class Web < Sinatra::Base
