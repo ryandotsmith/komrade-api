@@ -3,7 +3,6 @@ GEM
   specs:
     daemons (1.0.10)
     gem_plugin (0.2.3)
-    haml (3.1.7)
     mongrel (1.2.0.pre2)
       daemons (~> 1.0.10)
       gem_plugin (~> 0.2.3)
@@ -22,7 +21,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  haml
   mongrel (= 1.2.0.pre2)
   pg
   sequel
