@@ -3,4 +3,4 @@ $:.unshift(File.expand_path(File.join(File.dirname($0), '../lib')))
 require 'web'
 $stdout.sync = true
 Thread.abort_on_exception = true
-Web.start
+Komrade::Web.start
