@@ -32,7 +32,11 @@ module Komrade
           resp = nil
           resp = http(uri).request(req)
           if (Integer(resp.code) / 100) == 2
-            return JSON.parse(resp.body)
+            begin
+              return JSON.parse(resp.body)
+            rescue JSON::ParserError
+              return resp.body
+            end
           end
         rescue Net::HTTPError => e
           next
