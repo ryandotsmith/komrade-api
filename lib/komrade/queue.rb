@@ -36,7 +36,7 @@ module Komrade
     end
 
     def queue_url(q)
-      "http://komrade:#{q[:token]}@service-1.komrade.32k.io"
+      "https://komrade:#{q[:token]}@service-1.komrade.io"
     end
 
     private
