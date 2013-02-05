@@ -11,6 +11,15 @@ module Komrade
       make_request(uri, Net::HTTP::Get.new(uri.path))
     end
 
+    def put(uri, body=nil)
+      make_request(uri, Net::HTTP::Put.new(uri.path), body)
+    end
+
+    def post(uri, body=nil)
+      make_request(uri, Net::HTTP::Post.new(uri.path), body)
+    end
+
+
     def make_request(uri, req, body=nil)
       req.basic_auth(uri.user, uri.password)
       if body
