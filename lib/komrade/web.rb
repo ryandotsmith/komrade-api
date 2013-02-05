@@ -1,6 +1,8 @@
 require 'json'
 require 'sinatra/base'
 require 'rack/handler/mongrel'
+require 'rack/ssl-enforcer'
+
 
 require 'komrade/conf'
 require 'komrade/utils'
@@ -11,6 +13,7 @@ require 'komrade/heroku'
 
 module Komrade
   class Web < Sinatra::Base
+    use Rack::SslEnforcer
     use Rack::Session::Cookie, secret: ENV['SSO_SALT']
     set :public_folder, "./public"
     set :views, "./templates"
