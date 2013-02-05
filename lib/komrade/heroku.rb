@@ -13,5 +13,12 @@ module Komrade
       HttpHelpers.get(uri)
     end
 
+    def update_config(queue)
+      uri = URI.parse(queue[:callback_url])
+      uri.user = Conf.heroku_username
+      uri.password = Conf.heroku_password
+      HttpHelpers.put(uri, config: {'KOMRADE_URL' => Queue.queue_url(queue)})
+    end
+
   end
 end
