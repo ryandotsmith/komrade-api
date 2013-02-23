@@ -23,9 +23,11 @@ function getData(path) {
 		url: path,
 		cache: false,
 		beforeSend: function() {
+			chart.showLoading();
 			$("#chart-spinner").show();
 		},
 		success: function(d) {
+			chart.hideLoading();
 			$("#chart-spinner").hide();
 			appendData(d)
 		}
