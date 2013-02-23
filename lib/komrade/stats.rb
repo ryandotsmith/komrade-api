@@ -29,7 +29,7 @@ module KomradeApi
     end
 
     def pg
-      @pg ||= Sequel.connect(Conf.database_url)
+      @pg ||= Sequel.connect(Conf.database_read_url)
     end
 
     def log(data, &blk)
