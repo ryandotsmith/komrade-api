@@ -25,9 +25,9 @@ function getData(path) {
 		beforeSend: function() {
 			$("#chart-spinner").show();
 		},
-		success: function() {
+		success: function(d) {
 			$("#chart-spinner").hide();
-			appendData
+			appendData(d)
 		}
 	});
 }
