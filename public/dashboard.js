@@ -19,7 +19,17 @@ function appendData(data) {
 
 function getData(path) {
 	console.log('at=get-data path='+path);
-	$.ajax({url: path, cache: false, success: appendData});
+	$.ajax({
+		url: path,
+		cache: false,
+		beforeSend: function() {
+			$("#chart-spinner").show();
+		},
+		success: function() {
+			$("#chart-spinner").hide();
+			appendData
+		}
+	});
 }
 
 function newChartGetData(path) {
