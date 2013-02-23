@@ -3,7 +3,6 @@ require 'sinatra/base'
 require 'rack/handler/mongrel'
 require 'rack/ssl-enforcer'
 
-
 require 'komrade/conf'
 require 'komrade/utils'
 require 'komrade/queue'
@@ -11,7 +10,7 @@ require 'komrade/stats'
 require 'komrade/errors'
 require 'komrade/heroku'
 
-module Komrade
+module KomradeApi
   class Web < Sinatra::Base
     use Rack::SslEnforcer
     use Rack::Session::Cookie, secret: ENV['SSO_SALT']
@@ -61,11 +60,23 @@ module Komrade
     # SSO Index.
     get "/" do
       halt 403, 'not logged in' unless session[:email]
-      @queue = Queue.find(session[:queue_id])
-      @stats = Stats.all(@queue[:token])
-      @errors = Errors.get(@queue[:token])
       @app = Heroku.get_app(@queue[:callback_url])
       erb(:index)
+    end
+
+    get "/metrics" do
+      halt 403, 'not logged in' unless session[:email]
+      @queue = Queue.find(session[:queue_id])
+      res = case params[:limit]
+      when 'hour'
+        Stats.historical(@queue[:token], 'minute', 'hour')
+      when 'day'
+        Stats.historical(@queue[:token], 'hour', 'day')
+      else
+        Stats.real_time(@queue[:token])
+      end
+      status(200)
+      body(JSON.dump(res))
     end
 
     post '/sso/login' do

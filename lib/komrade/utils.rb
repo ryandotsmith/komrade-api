@@ -1,6 +1,6 @@
 require 'komrade/conf'
 
-module Komrade
+module KomradeApi
   module Utils
     extend self
 

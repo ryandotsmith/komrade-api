@@ -1,8 +1,9 @@
+require 'timeout'
 require 'securerandom'
 require 'sequel'
 require 'komrade/conf'
 
-module Komrade
+module KomradeApi
   module Queue
     extend self
 

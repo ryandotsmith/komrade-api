@@ -2,7 +2,7 @@ require 'json'
 require 'sequel'
 require 'komrade/conf'
 
-module Komrade
+module KomradeApi
   module Errors
     extend self
 

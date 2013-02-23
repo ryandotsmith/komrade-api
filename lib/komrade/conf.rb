@@ -1,4 +1,4 @@
-module Komrade
+module KomradeApi
   module Conf
     extend self
     def env(k)

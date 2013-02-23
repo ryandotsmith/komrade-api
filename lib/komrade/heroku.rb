@@ -2,7 +2,7 @@ require 'uri'
 require 'komrade/conf'
 require 'komrade/http_helpers'
 
-module Komrade
+module KomradeApi
   module Heroku
     extend self
 

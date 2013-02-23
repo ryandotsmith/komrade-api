@@ -6,93 +6,21 @@
 	<meta name="description" content="Komrade Dashboard" />
 	<link href="/style.css" rel="stylesheet" type="text/css">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-	<script src="/main.js" type="text/javascript"></script>
+	<script src="/highcharts.js" type="text/javascript"></script>
+	<script src="/chart-theme.js" type="text/javascript"></script>
+	<script src="/dashboard.js" type="text/javascript"></script>
 </head>
+
 <body>
-	<span id="sample-label">Worker throughput.</span>
-	<hr />
-	<table id="queue-summary">
-		<tr>
-			<td class="label">in</td>
-			<td class="minute-value"><%=@stats[:in][:minute]%></td>
-			<td class="hour-value"><%=@stats[:in][:hour]%></td>
-			<td class="day-value"><%=@stats[:in][:day]%></td>
-		</tr>
-		<tr>
-			<td class="label">out</td>
-			<td class="minute-value"><%=@stats[:out][:minute]%></td>
-			<td class="hour-value"><%=@stats[:out][:hour]%></td>
-			<td class="day-value"><%=@stats[:out][:day]%></td>
-		</tr>
-		<tr>
-			<td class="label">lost</td>
-			<td class="minute-value"><%=@stats[:lost][:minute]%></td>
-			<td class="hour-value"><%=@stats[:lost][:hour]%></td>
-			<td class="day-value"><%=@stats[:lost][:day]%></td>
-		</tr>
-		<tr>
-			<td class="label">error</td>
-			<td class="minute-value">
-				<a class="error-link" rel="errors-minute"><%=@stats[:error][:minute]%></a>
-      			</td>
-			<td class="hour-value">
-				<a class="error-link" rel="errors-hour"><%=@stats[:error][:hour]%></a>
-			</td>
-			<td class="day-value red">
-        			<a class="error-link" rel="errors-day"><%=@stats[:error][:day]%></a>
-			</td>
-		</tr>
-		<tr>
-			<td></td>
-			<td class="time-label">1m</td>
-			<td class="time-label">1hr</td>
-			<td class="time-label">24hr</td>
-		</tr>
-	</table>
-
-	<section class="errors-detail">
-		<span>Failed jobs for last minute.</span>
+	<secion id="throughput-metrics">
+		<span>Throughput</span>
+		<div class="chart-nav">
+			<a class="selected" href="/metrics" data-realtime="true">Realtime</a>
+			<a href="/metrics?limit=hour">Hour</a>
+			<a href="/metrics?limit=day">Day</a>
+		</div>
 		<hr />
-		<ul id="errors-minute">
-		<% @errors[:minute].each do |error| %>
-			<li class="errors-minute">
-				(<%= error[:count]%>)
-				<%= error[:payload]["error"]%>
-        -
-				<%= error[:payload]["message"][0..200] %>
-			</li>
-		<% end %>
-		</ul>
-	</section>
-
-	<section class="errors-detail">
-		<span>Failed jobs for last hour.</span>
-    		<hr />
-		<ul id="errors-hour">
-		<% @errors[:hour].each do |error| %>
-			<li class="errors-hour">
-				(<%= error[:count]%>)
-				<%= error[:payload]["error"]%>
-        -
-				<%= error[:payload]["message"][0..200] %>
-			</li>
-		<% end %>
-		</ul>
-	</section>
-
-	<section class="errors-detail">
-		<span>Failed jobs for last day.</span>
-		<hr />
-		<ul id="errors-day">
-		<% @errors[:day].each do |error| %>
-			<li class="errors-day">
-				(<%= error[:count]%>)
-				<%= error[:payload]["error"]%>
-        -
-				<%= error[:payload]["message"][0..200] %>
-			</li>
-		<% end %>
-		</ul>
+		<div class="chart"></div>
 	</section>
 </body>
 

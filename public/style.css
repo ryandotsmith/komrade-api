@@ -1,5 +1,7 @@
+a:visited {}
+
 body {
-  width: 500px;
+  width: 800px;
   margin: 10px auto 0 auto;
   font-family: courier;
   background-color:#ECECE7;
@@ -11,6 +13,15 @@ h1 {
 
 .hidden {
   display: none;
+}
+
+a {
+  color: black;
+  text-decoration:none;
+}
+
+a:visited {
+  color:  black;
 }
 
 a:hover {
@@ -58,4 +69,13 @@ table#queue-summary td.time-label {
   text-align: center;
   font-size: 0.5em;
   padding-bottom: 20px;
+}
+
+.selected {
+	font-weight: bold;
+}
+
+.chart-nav {
+	font-size: 10px;
+	float:right;
 }

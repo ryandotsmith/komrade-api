@@ -1,77 +1,39 @@
 require 'komrade/conf'
+require 'komrade/utils'
 
-module Komrade
+module KomradeApi
   module Stats
     extend self
     ENQUEUE = 0
+    DEQUEUE = 1
     DELETE = 2
+    ERROR = 3
 
-    def all(queue_id)
-      {
-        in: _in(queue_id),
-        out: out(queue_id),
-        error: error(queue_id),
-        lost: lost(queue_id)
-      }
+    def historical(qid, resolution, limit)
+      s =  "select date_trunc('#{resolution}', time) as time, action, count(*) from metabolism_reports"
+      s += " where queue = ? and time >= date_trunc('#{resolution}', now()) - '1 #{limit}'::interval and time < date_trunc('#{resolution}', now()) "
+      s += "group by 1, 2 "
+      s += "order by time asc"
+      log(at: resolution) do
+        pg[s, qid].to_a
+      end
     end
 
-    def _in(queue_id)
-      {
-        minute: metabolism(queue_id, ENQUEUE, 'minute'),
-        hour: metabolism(queue_id, ENQUEUE, 'hour'),
-        day: metabolism(queue_id, ENQUEUE, 'day')
-      }
-    end
-
-    def out(queue_id)
-      {
-        minute: metabolism(queue_id, DELETE, 'minute'),
-        hour: metabolism(queue_id, DELETE, 'hour'),
-        day: metabolism(queue_id, DELETE, 'day')
-      }
-    end
-
-    def lost(queue_id)
-      {
-        minute: lost_jobs(queue_id, 'minute'),
-        hour: lost_jobs(queue_id, 'hour'),
-        day: lost_jobs(queue_id, 'day')
-      }
-    end
-
-    def error(queue_id)
-      {
-        minute: failed_jobs(queue_id, 'minute'),
-        hour: failed_jobs(queue_id, 'hour'),
-        day: failed_jobs(queue_id, 'day')
-      }
-    end
-
-    def lost_jobs(qid, period)
-      pg[:jobs].
-        where(queue: qid).
-        where("locked_at is not null").
-        where("failed_count = 0").
-        where("heartbeat - now() < '1 #{period}'::interval").
-        count
-    end
-
-    def failed_jobs(qid, period)
-      pg[:failed_jobs].
-        where(queue: qid).
-        where("created_at > now() - '1 #{period}'::interval").
-        count
-    end
-
-    def metabolism(qid, action, period)
-      pg[:metabolism_reports].
-        where(queue: qid, action: action).
-        where("time > now() - '1 #{period}'::interval").
-        count
+    def real_time(qid)
+      s =  "select now() as time, action, count(*) from metabolism_reports"
+      s += " where queue = ? and time > now() - '1 minute'::interval "
+      s += "group by 1, 2"
+      log(at: 'real-time') do
+        pg[s, qid].to_a
+      end
     end
 
     def pg
       @pg ||= Sequel.connect(Conf.database_url)
+    end
+
+    def log(data, &blk)
+      Utils.log({ns: "web"}.merge(data), &blk)
     end
 
   end

@@ -2,7 +2,7 @@ require 'net/http'
 require 'json'
 require 'uri'
 
-module Komrade
+module KomradeApi
   module HttpHelpers
     extend self
     MAX_RETRY = 3
