@@ -60,6 +60,7 @@ module KomradeApi
     # SSO Index.
     get "/" do
       halt 403, 'not logged in' unless session[:email]
+      @queue = Queue.find(session[:queue_id])
       @app = Heroku.get_app(@queue[:callback_url])
       erb(:index)
     end
