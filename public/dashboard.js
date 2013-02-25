@@ -34,6 +34,7 @@ function getData(path) {
 
 function newChartGetData(path) {
 	getData(path);
+	// wants realtime data.
 	if (path == '/metrics') {
 		setInterval(function(t) {
 			if (updateLock) {
@@ -76,7 +77,7 @@ function initChart(link) {
 $(document).ready(function() {
 	initChart($(".chart-nav a.selected"));
 	$(".chart-nav a").click(function() {
-		if ($(this).attr('data-realtime') == 'true') {
+		if ($(this).attr('href') == '/metrics') {
 			updateLock = false;
 		} else {
 			updateLock = true;
