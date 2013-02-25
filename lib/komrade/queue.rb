@@ -1,7 +1,4 @@
-require 'timeout'
-require 'securerandom'
-require 'sequel'
-require 'komrade/conf'
+require_relative 'komrade'
 
 module KomradeApi
   module Queue

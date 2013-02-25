@@ -1,3 +1,5 @@
+require_relative 'komrade'
+
 module KomradeApi
   module Conf
     extend self

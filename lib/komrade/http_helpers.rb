@@ -1,6 +1,4 @@
-require 'net/http'
-require 'json'
-require 'uri'
+require_relative 'komrade'
 
 module KomradeApi
   module HttpHelpers

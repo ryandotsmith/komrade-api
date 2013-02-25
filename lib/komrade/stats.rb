@@ -1,5 +1,4 @@
-require 'komrade/conf'
-require 'komrade/utils'
+require_relative 'komrade'
 
 module KomradeApi
   module Stats
