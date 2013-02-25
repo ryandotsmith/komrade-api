@@ -48,7 +48,7 @@ module KomradeApi
     if Conf.development_mode?
       before do
         session[:email] = 'dev@komrade.io'
-        session[:queue_id] = Queue.first
+        session[:queue_id] = Queue.first[:token]
       end
     end
 
