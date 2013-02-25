@@ -11,6 +11,10 @@ module KomradeApi
       db[:queues].all
     end
 
+    def first
+      db[:queues].first
+    end
+
     def find(id)
       db[:queues].where(token: id).where("deleted_at is null").first
     end

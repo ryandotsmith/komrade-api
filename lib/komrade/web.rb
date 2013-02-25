@@ -12,7 +12,7 @@ require 'komrade/heroku'
 
 module KomradeApi
   class Web < Sinatra::Base
-    use Rack::SslEnforcer
+    use Rack::SslEnforcer unless Conf.development_mode?
     use Rack::Session::Cookie, secret: ENV['SSO_SALT']
     set :public_folder, "./public"
     set :views, "./templates"
@@ -42,6 +42,13 @@ module KomradeApi
         @auth ||=  Rack::Auth::Basic::Request.new(request.env)
         @auth.provided? && @auth.basic? && @auth.credentials &&
         @auth.credentials == [Conf.admin_username, Conf.admin_password]
+      end
+    end
+
+    if Conf.development_mode?
+      before do
+        session[:email] = 'dev@komrade.io'
+        session[:queue_id] = Queue.first
       end
     end
 

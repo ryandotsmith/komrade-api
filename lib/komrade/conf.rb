@@ -17,5 +17,6 @@ module KomradeApi
     def heroku_password; env!("HEROKU_PASSWORD"); end
     def admin_username; env!("ADMIN_USERNAME"); end
     def admin_password; env!("ADMIN_PASSWORD"); end
+    def development_mode?; !env!("DEVELOPMENT_MODE").nil?; end
   end
 end
