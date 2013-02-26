@@ -6,17 +6,17 @@ module KomradeApi
     extend self
     QUEUE_ACTIONS = [0,1,2,3]
 
-    def aggregate(qid, t=Time.now)
-      t = (t.to_i/(60*60)) * (60*60)
+    def aggregate(qid, time=Time.now.to_i)
+      time = (time/(60*60)) * (60*60)
       s=['select time, action, sum(count) as count',
           'from stat_min',
           "where queue = ? and extract('epoch' from date_trunc('hour', time)) = ?",
           'group by 1, 2',
           'order by time asc'].join(' ')
-      KomradeApi.pg[s, qid, t].to_a
+      KomradeApi.pg[s, qid, time].to_a
     end
 
-    def compact(qid, t=Time.now)
+    def compact(qid, t=Time.now.to_i)
       existing = get(qid, t).group_by {|s| s[:action]}
       QUEUE_ACTIONS.map do |a|
         maxid = (existing[a] && existing[a].max {|s| s[:maxid]}[:maxid]) || 0
@@ -28,7 +28,7 @@ module KomradeApi
     end
 
     def get(qid, t)
-      t = (t.to_i/(60*60)) * (60*60)
+      t = (t/(60*60)) * (60*60)
       s=['select * from stat_min',
         "where queue = ? and extract('epoch' from time) = ?"].join(' ')
       KomradeApi.pg[s, qid, t].to_a

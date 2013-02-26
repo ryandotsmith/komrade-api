@@ -3,6 +3,7 @@ GEM
   specs:
     daemons (1.0.10)
     gem_plugin (0.2.3)
+    komrade-client (1.0.15)
     mongrel (1.2.0.pre2)
       daemons (~> 1.0.10)
       gem_plugin (~> 0.2.3)
@@ -11,6 +12,7 @@ GEM
     rack-protection (1.3.2)
       rack
     rack-ssl-enforcer (0.2.4)
+    rake (10.0.3)
     sequel (3.43.0)
     sinatra (1.3.3)
       rack (~> 1.3, >= 1.3.6)
@@ -22,8 +24,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  komrade-client (= 1.0.15)
   mongrel (= 1.2.0.pre2)
   pg
   rack-ssl-enforcer
+  rake
   sequel
   sinatra
