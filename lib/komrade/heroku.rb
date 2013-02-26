@@ -7,6 +7,7 @@ module KomradeApi
     extend self
 
     def get_app(url)
+      return {name: 'dev-app'} if Conf.development_mode?
       uri = URI.parse(url)
       uri.user = Conf.heroku_username
       uri.password = Conf.heroku_password
