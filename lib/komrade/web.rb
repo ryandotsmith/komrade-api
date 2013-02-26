@@ -69,6 +69,7 @@ module KomradeApi
       halt 403, 'not logged in' unless session[:email]
       @queue = Queue.find(session[:queue_id])
       @app = Heroku.get_app(@queue[:callback_url])
+      @failed_jobs = FailedJob.by_queue_id(session[:queue_id])
       erb(:index)
     end
 
@@ -85,6 +86,18 @@ module KomradeApi
       end
       status(200)
       body(JSON.dump(res))
+    end
+
+    get "/failed_jobs/:timestamp" do
+      halt 403, 'not logged in' unless session[:email]
+      failed_jobs = FailedJob.in_last_three_seconds(session[:queue_id], params[:timestamp].to_i / 1000)
+      status(200)
+
+      body(JSON.dump(failed_jobs.map do |job|
+        {created_at: job[:created_at],
+         method: JSON.parse(job[:payload])["method"],
+         args: JSON.parse(job[:payload])["args"]}
+      end))
     end
 
     post '/sso/login' do
