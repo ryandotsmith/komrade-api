@@ -1,4 +1,5 @@
 require 'komrade-client'
+require 'komrade/queue'
 
 module KomradeApi
   module Ticker
