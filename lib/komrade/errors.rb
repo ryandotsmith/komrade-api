@@ -1,6 +1,4 @@
-require 'json'
-require 'sequel'
-require 'komrade/conf'
+require_relative 'komrade'
 
 module KomradeApi
   module Errors

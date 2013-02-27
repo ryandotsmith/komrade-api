@@ -1,6 +1,4 @@
-require 'uri'
-require 'komrade/conf'
-require 'komrade/http_helpers'
+require_relative 'komrade'
 
 module KomradeApi
   module Heroku

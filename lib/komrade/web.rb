@@ -1,14 +1,4 @@
-require 'json'
-require 'sinatra/base'
-require 'rack/handler/mongrel'
-require 'rack/ssl-enforcer'
-
-require 'komrade/conf'
-require 'komrade/utils'
-require 'komrade/queue'
-require 'komrade/stats'
-require 'komrade/errors'
-require 'komrade/heroku'
+require_relative 'komrade'
 
 module KomradeApi
   class Web < Sinatra::Base
