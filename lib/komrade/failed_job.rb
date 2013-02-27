@@ -1,4 +1,5 @@
-require_relative 'komrade'
+require 'sequel'
+require 'komrade/conf'
 
 module KomradeApi
   module FailedJob

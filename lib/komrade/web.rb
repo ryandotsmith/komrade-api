@@ -9,6 +9,7 @@ require 'komrade/queue'
 require 'komrade/stats'
 require 'komrade/errors'
 require 'komrade/heroku'
+require 'komrade/failed_job'
 
 module KomradeApi
   class Web < Sinatra::Base
