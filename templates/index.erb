@@ -40,8 +40,8 @@
             <% @failed_jobs.each do |job| %>
               <tr>
                 <td><%= job[:created_at] %></td>
-                <td><%= JSON.parse(job[:payload])["method"] %></td>
-                <td><%= JSON.parse(job[:payload])["args"] %></td>
+                <td><%= job[:method] %></td>
+                <td><%= job[:args]) %></td>
               <tr>
             <% end %>
           </tbody>
