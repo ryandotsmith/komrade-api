@@ -90,14 +90,14 @@ module KomradeApi
 
     get "/failed_jobs/:timestamp" do
       halt 403, 'not logged in' unless session[:email]
-      failed_jobs = FailedJob.in_last_three_seconds(session[:queue_id], params[:timestamp].to_i / 1000)
+      failed_jobs = FailedJob.from(session[:queue_id], params[:timestamp].to_i / 1000)
       status(200)
 
       body(JSON.dump(failed_jobs.map do |job|
         {created_at: job[:created_at],
          method: JSON.parse(job[:payload])["method"],
-         method: JSON.parse(job[:payload])["error"],
-         method: JSON.parse(job[:payload])["message"],
+         error: JSON.parse(job[:payload])["error"],
+         message: JSON.parse(job[:payload])["message"],
          args: JSON.parse(job[:payload])["args"]}
       end))
     end

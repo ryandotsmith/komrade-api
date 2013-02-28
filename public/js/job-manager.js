@@ -1,10 +1,11 @@
 $(document).ready(function() {
-  setInterval('updateFailedJobRows()', 3000)
+  updateFailedJobRows(0)
+  setInterval('updateFailedJobRows(new Date().getTime() - 3000)', 3000)
 });
 
-function updateFailedJobRows() {
+function updateFailedJobRows(timestamp) {
   console.log('at=update-failed-job-rows path="/failed_jobs"')
-  $.getJSON('/failed_jobs/' + new Date().getTime(), function(d) {
+  $.getJSON('/failed_jobs/' + timestamp, function(d) {
     $.each(d, function(i, data) {
       $('table > tbody').append(
          "<tr>" +

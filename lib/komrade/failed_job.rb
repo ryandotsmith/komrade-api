@@ -5,8 +5,8 @@ module KomradeApi
   module FailedJob
     extend self
 
-    def in_last_three_seconds(queue_id, timestamp)
-      db[:failed_jobs].where(queue: queue_id).where('created_at > ?', Time.at(timestamp-3))
+    def from(queue_id, timestamp)
+      db[:failed_jobs].where(queue: queue_id).where('created_at > ?', Time.at(timestamp))
     end
 
     private
