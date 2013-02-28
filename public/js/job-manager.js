@@ -11,6 +11,8 @@ function updateFailedJobRows() {
             "<td>" + data.created_at + "</td>" +
             "<td>" + data.method + "</td>" +
             "<td>" + data.args + "</td>" +
+            "<td>" + data.error + "</td>" +
+            "<td>" + data.message + "</td>" +
           "<tr>");
     });
   });
