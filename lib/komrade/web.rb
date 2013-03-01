@@ -78,11 +78,11 @@ module KomradeApi
       @queue = Queue.find(session[:queue_id])
       res = case params[:limit]
       when 'hour'
-        Stats.historical(@queue[:token], 'minute', 'hour')
+        StatsMin.aggregate(@queue[:token])
       when 'day'
-        Stats.historical(@queue[:token], 'hour', 'day')
+        StatsHour.aggregate(@queue[:token])
       else
-        Stats.real_time(@queue[:token])
+        StatsRaw.aggregate(@queue[:token], Time.now - 60)
       end
       status(200)
       body(JSON.dump(res))
