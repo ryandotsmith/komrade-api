@@ -4,10 +4,23 @@ require 'komrade/stats_raw'
 module KomradeApi
   module StatsMin
     extend self
+    HOUR = 60*60
     QUEUE_ACTIONS = [0,1,2,3]
 
+    def by_hour(qid, time, action, maxid)
+      time = (time/HOUR) * HOUR
+      s=['select sum(count) as count, max(id) as maxid,',
+        "date_trunc('hour', time) as time,",
+        'queue, action',
+        'from stat_min',
+        'where queue = ? and action = ? and id > ? and',
+        "extract('epoch' from date_trunc('hour', time)) = ?",
+        'group by 3, 4, 5'].join(' ')
+      KomradeApi.pg[s, qid, action, maxid, time].to_a
+    end
+
     def aggregate(qid, time=Time.now.to_i)
-      time = (time/(60*60)) * (60*60)
+      time = (time/HOUR) * HOUR
       s=['select time, action, sum(count) as count',
           'from stat_min',
           "where queue = ? and extract('epoch' from date_trunc('hour', time)) = ?",
@@ -28,7 +41,7 @@ module KomradeApi
     end
 
     def get(qid, t)
-      t = (t/(60*60)) * (60*60)
+      t = (t/HOUR) * HOUR
       s=['select * from stat_min',
         "where queue = ? and extract('epoch' from time) = ?"].join(' ')
       KomradeApi.pg[s, qid, t].to_a

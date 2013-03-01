@@ -19,7 +19,6 @@ module KomradeApi
       make_request(uri, Net::HTTP::Post.new(uri.path), body)
     end
 
-
     def make_request(uri, req, body=nil)
       req.basic_auth(uri.user, uri.password)
       if body
