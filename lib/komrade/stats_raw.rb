@@ -22,7 +22,7 @@ module KomradeApi
         'from stat_raw',
         'where queue = ? and time > ?',
         'group by 1, 2'].join(' ')
-      KomradeApi.stats_pg[s, qid, time]
+      KomradeApi.stats_pg[s, qid, time].to_a
     end
 
   end
