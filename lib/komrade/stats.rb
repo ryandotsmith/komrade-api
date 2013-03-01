@@ -10,7 +10,7 @@ module KomradeApi
     ERROR = 3
 
     def historical(qid, resolution, limit)
-      s =  "select date_trunc('#{resolution}', time) as time, action, count(*) from metabolism_reports"
+      s =  "select date_trunc('#{resolution}', time) as time, action, count(*) from stat_raw "
       s += " where queue = ? and time >= date_trunc('#{resolution}', now()) - '1 #{limit}'::interval and time < date_trunc('#{resolution}', now()) "
       s += "group by 1, 2 "
       s += "order by time asc"
@@ -20,7 +20,7 @@ module KomradeApi
     end
 
     def real_time(qid)
-      s =  "select now() as time, action, count(*) from metabolism_reports"
+      s =  "select now() as time, action, count(*) from stat_raw "
       s += " where queue = ? and time > now() - '1 minute'::interval "
       s += "group by 1, 2"
       log(at: 'real-time') do
@@ -29,7 +29,7 @@ module KomradeApi
     end
 
     def pg
-      @pg ||= Sequel.connect(Conf.database_read_url)
+      @pg ||= Sequel.connect(Conf.stats_database_url)
     end
 
     def log(data, &blk)
