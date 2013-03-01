@@ -10,7 +10,7 @@ module KomradeApi
       s=['select count(*), max(id) as maxid,',
         "date_trunc('minute', time) as time,",
         'queue, action',
-        'from stats_raw',
+        'from stat_raw',
         'where queue = ? and action = ? and id > ? and',
         "extract('epoch' from date_trunc('minute', time)) = ?",
         'group by 3, 4, 5'].join(' ')
