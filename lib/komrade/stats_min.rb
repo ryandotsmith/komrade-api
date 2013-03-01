@@ -16,7 +16,7 @@ module KomradeApi
         'where queue = ? and action = ? and id > ? and',
         "extract('epoch' from date_trunc('hour', time)) = ?",
         'group by 3, 4, 5'].join(' ')
-      KomradeApi.pg[s, qid, action, maxid, time].to_a
+      KomradeApi.stats_pg[s, qid, action, maxid, time].to_a
     end
 
     def aggregate(qid, time=Time.now.to_i)
@@ -26,7 +26,7 @@ module KomradeApi
           "where queue = ? and extract('epoch' from date_trunc('hour', time)) = ?",
           'group by 1, 2',
           'order by time asc'].join(' ')
-      KomradeApi.pg[s, qid, time].to_a
+      KomradeApi.stats_pg[s, qid, time].to_a
     end
 
     def compact(qid, t=Time.now.to_i)
@@ -34,7 +34,7 @@ module KomradeApi
       QUEUE_ACTIONS.map do |a|
         maxid = (existing[a] && existing[a].max {|s| s[:maxid]}[:maxid]) || 0
         if raw = StatsRaw.by_min(qid, t, a, maxid).pop
-          KomradeApi.pg[:stat_min].returning.insert(queue: qid,
+          KomradeApi.stats_pg[:stat_min].returning.insert(queue: qid,
             time: raw[:time], maxid: raw[:maxid], count: raw[:count], action: a)
         end
       end
@@ -44,7 +44,7 @@ module KomradeApi
       t = (t/HOUR) * HOUR
       s=['select * from stat_min',
         "where queue = ? and extract('epoch' from time) = ?"].join(' ')
-      KomradeApi.pg[s, qid, t].to_a
+      KomradeApi.stats_pg[s, qid, t].to_a
     end
 
   end

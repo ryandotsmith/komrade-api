@@ -12,6 +12,7 @@ module KomradeApi
     def app_name; env!("APP_NAME"); end
     def database_url; env!("DATABASE_URL"); end
     def database_read_url; env!("DATABASE_READ_URL"); end
+    def stats_database_url; env!("STATS_DATABASE_URL"); end
     def port; env!("PORT"); end
     def heroku_username; env!("HEROKU_USERNAME"); end
     def heroku_password; env!("HEROKU_PASSWORD"); end

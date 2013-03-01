@@ -14,7 +14,7 @@ module KomradeApi
         'where queue = ? and action = ? and id > ? and',
         "extract('epoch' from date_trunc('minute', time)) = ?",
         'group by 3, 4, 5'].join(' ')
-      KomradeApi.pg[s, qid, action, maxid, time].to_a
+      KomradeApi.stats_pg[s, qid, action, maxid, time].to_a
     end
 
   end

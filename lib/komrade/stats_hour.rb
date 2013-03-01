@@ -14,7 +14,7 @@ module KomradeApi
           "where queue = ? and extract('epoch' from date_trunc('day', time)) = ?",
           'group by 1, 2',
           'order by time asc'].join(' ')
-      KomradeApi.pg[s, qid, time].to_a
+      KomradeApi.stats_pg[s, qid, time].to_a
     end
 
     def compact(qid, t=Time.now.to_i)
@@ -22,7 +22,7 @@ module KomradeApi
       QUEUE_ACTIONS.map do |a|
         maxid = (existing[a] && existing[a].max {|s| s[:maxid]}[:maxid]) || 0
         if raw = StatsMin.by_hour(qid, t, a, maxid).pop
-          KomradeApi.pg[:stat_hour].returning.insert(queue: qid,
+          KomradeApi.stats_pg[:stat_hour].returning.insert(queue: qid,
             time: raw[:time], maxid: raw[:maxid], count: raw[:count], action: a)
         end
       end
@@ -32,7 +32,7 @@ module KomradeApi
       t = (t/DAY)*DAY
       s=['select * from stat_hour',
         "where queue = ? and extract('epoch' from time) = ?"].join(' ')
-      KomradeApi.pg[s, qid, t].to_a
+      KomradeApi.stats_pg[s, qid, t].to_a
     end
 
   end
