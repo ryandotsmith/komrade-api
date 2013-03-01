@@ -18,7 +18,7 @@ module KomradeApi
     end
 
     def aggregate(qid, time=Time.now.to_i)
-      s=['select now(), action, count(*)',
+      s=['select now() as time, action, count(*)',
         'from stat_raw',
         'where queue = ? and time > ?',
         'group by 1, 2'].join(' ')
