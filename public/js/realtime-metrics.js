@@ -5,13 +5,22 @@ var chart;
 // However, when you are in hour or day mode you don't want updates.
 var updateLock = false;
 
+function appendColl(data) {
+}
+
+function append(data) {
+	//var shift = s.data.length > 60;
+	//var redraw = false;
+	//s.addPoint([metric.time, metric.count], redraw, shift);
+}
+
 function appendData(data) {
-	var groups = JSON.parse(data);
-	for (var i in groups) {
-		var metric = groups[i];
-		var s = chart.series[metric.action];
-		var shift = s.data.length > 60;
-		s.addPoint([metric.time, metric.count], false, shift);
+	var metrics = _.groupBy(JSON.parse(data), 'action');
+	for (var i in metrics) {
+		var series = chart.series[i];
+		series.setData(_.map(metrics[i], function(d) {
+			return [d.time, d.count];
+		}));
 	}
 	chart.redraw();
 }
