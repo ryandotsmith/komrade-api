@@ -4,12 +4,14 @@ require 'komrade/queue'
 module KomradeApi
   module Ticker
     extend self
+    MINUTE = 60
+    HOUR = 60*MINUTE
 
     def start
       loop do
         t = Time.now
-        process_minute(t) if t.sec % 30 == 0
-        process_hour(t) if t.min % 30 == 0
+        process_minute(t-MINUTE) if t.sec % 30 == 0
+        process_hour(t-HOUR) if t.min % 30 == 0
         sleep(1)
       end
     end
