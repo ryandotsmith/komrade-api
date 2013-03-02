@@ -26,7 +26,9 @@ module KomradeApi
           "where queue = ? and extract('epoch' from date_trunc('hour', time)) = ?",
           'group by 1, 2',
           'order by time asc'].join(' ')
-      KomradeApi.stats_pg[s, qid, time].to_a
+      KomradeApi.stats_pg[s, qid, time].to_a.map do |stat|
+        stat.merge(count: stat[:count].to_i)
+      end
     end
 
     def compact(qid, t=Time.now.to_i)
