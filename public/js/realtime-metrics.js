@@ -5,16 +5,22 @@ var chart;
 // However, when you are in hour or day mode you don't want updates.
 var updateLock = false;
 
+function appendOne(data) {
+	var groups = _.groupBy(JSON.parse(data), 'action');
+	for (var i in groups) {
+		var s = chart.series[i];
+		var metrics = groups[i];
+		for (j in metrics) {
+			var metric = metrics[j];
+			s.addPoint([metric.time, metric.count],
+				false, //redraw
+				s.data.length > 60);
+		}
+	}
+	chart.redraw();
+}
+
 function appendColl(data) {
-}
-
-function append(data) {
-	//var shift = s.data.length > 60;
-	//var redraw = false;
-	//s.addPoint([metric.time, metric.count], redraw, shift);
-}
-
-function appendData(data) {
 	var metrics = _.groupBy(JSON.parse(data), 'action');
 	for (var i in metrics) {
 		var series = chart.series[i];
@@ -25,24 +31,15 @@ function appendData(data) {
 	chart.redraw();
 }
 
-function getData(path) {
-	console.log('at=get-data path='+path);
-	$.ajax({
-		url: path,
-		cache: false,
-		success: appendData
-	});
-}
-
 function newChartGetData(path) {
-	getData(path);
+	$.ajax({url: path, success: appendColl});
 	// wants realtime data.
 	if (path == '/metrics') {
 		setInterval(function(t) {
 			if (updateLock) {
 				clearInterval(t);
 			} else {
-				getData(path);
+				$.ajax({url: path, success: appendOne});
 			}
 		}, 3000);
 	}
