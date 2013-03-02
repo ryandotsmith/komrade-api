@@ -67,10 +67,6 @@ function initChart(link) {
 			{name: 'error', data: [], color: 'salmon', marker: {radius: 4, symbol: 'triangle'}}
 		]
 	});
-	// Hide dequeue & delete by default.
-	// Enqueue and errors are more important?
-	chart.series[2].hide();
-	chart.series[1].hide();
 }
 
 $(document).ready(function() {
