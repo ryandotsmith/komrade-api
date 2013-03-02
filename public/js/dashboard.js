@@ -7,8 +7,6 @@ var updateLock = false;
 
 function appendData(data) {
 	var groups = JSON.parse(data);
-	// in  out error lost
-	//[[x,y], [x,y], [x,y], [x,y]]
 	for (var i in groups) {
 		var metric = groups[i];
 		var s = chart.series[metric.action];
@@ -22,13 +20,7 @@ function getData(path) {
 	$.ajax({
 		url: path,
 		cache: false,
-		beforeSend: function() {
-			$("#chart-spinner").show();
-		},
-		success: function(d) {
-			$("#chart-spinner").hide();
-			appendData(d)
-		}
+		success: appendData
 	});
 }
 

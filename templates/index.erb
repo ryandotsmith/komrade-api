@@ -10,7 +10,7 @@
 	<script src="js/highcharts.js" type="text/javascript"></script>
 	<script src="js/chart-theme.js" type="text/javascript"></script>
 	<script src="js/dashboard.js" type="text/javascript"></script>
-  <script src="js/job-manager.js" type="text/javascript"></script>
+	<script src="js/job-manager.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -18,32 +18,31 @@
 		<section id="throughput-metrics">
 			<span>Throughput</span>
 			<div class="chart-nav">
-				<img id="chart-spinner" style="display:none;" src="/spin.gif"> </img>
 				<a class="selected" href="/metrics">Realtime</a>
 				<a href="/metrics?limit=hour">Hour</a>
 				<a href="/metrics?limit=day">Day</a>
 			</div>
 			<hr />
 			<div class="chart"></div>
-		</section>
-    <div class="row">
-      <div class="span12">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>Timestamp</th>
-              <th>Job</th>
-              <th>Parameters</th>
-              <th>Error</th>
-              <th>Message</th>
-            <tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+			</section>
+		<div class="row">
+			<div class="span12">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Timestamp</th>
+							<th>Job</th>
+							<th>Parameters</th>
+							<th>Error</th>
+							<th>Message</th>
+						<tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 </body>
 
 <script src="https://s3.amazonaws.com/assets.heroku.com/boomerang/boomerang.js"></script>
