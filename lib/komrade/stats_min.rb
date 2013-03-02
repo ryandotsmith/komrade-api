@@ -23,7 +23,8 @@ module KomradeApi
       time = (time/HOUR) * HOUR
       s=['select time, action, sum(count) as count',
           'from stat_min',
-          "where queue = ? and extract('epoch' from date_trunc('hour', time)) = ?",
+          'where queue = ? and',
+          "time > now() - '1 hour'::interval",
           'group by 1, 2',
           'order by time asc'].join(' ')
       KomradeApi.stats_pg[s, qid, time].to_a.map do |stat|
