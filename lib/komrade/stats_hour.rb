@@ -11,7 +11,8 @@ module KomradeApi
       time = (time/DAY)*DAY
       s=['select time, action, sum(count) as count',
           'from stat_hour',
-          "where queue = ? and extract('epoch' from date_trunc('day', time)) = ?",
+          'where queue = ?',
+          "and time > now() - '1 day'::interval",
           'group by 1, 2',
           'order by time asc'].join(' ')
       KomradeApi.stats_pg[s, qid, time].to_a
