@@ -11,8 +11,9 @@ function appendData(data) {
 		var metric = groups[i];
 		var s = chart.series[metric.action];
 		var shift = s.data.length > 60;
-		s.addPoint([metric.time, metric.count], true, shift);
+		s.addPoint([metric.time, metric.count], false, shift);
 	}
+	chart.redraw();
 }
 
 function getData(path) {
