@@ -33,7 +33,7 @@ function appendColl(data) {
 
 function newChartGetData(path) {
 	$.ajax({url: path, success: appendColl});
-	// wants realtime data.
+	// If limit=X isn't in path, then we want realtime data.
 	if (path == '/metrics') {
 		setInterval(function(t) {
 			if (updateLock) {
@@ -41,7 +41,7 @@ function newChartGetData(path) {
 			} else {
 				$.ajax({url: path, success: appendOne});
 			}
-		}, 3000);
+		}, 1000);
 	}
 }
 
