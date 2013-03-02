@@ -15,7 +15,9 @@ module KomradeApi
           "and time > now() - '1 day'::interval",
           'group by 1, 2',
           'order by time asc'].join(' ')
-      KomradeApi.stats_pg[s, qid, time].to_a
+      KomradeApi.stats_pg[s, qid, time].to_a.map do |stat|
+        stat.merge(count: stat[:count].to_i)
+      end
     end
 
     def compact(qid, t=Time.now.to_i)
