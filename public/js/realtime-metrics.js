@@ -70,15 +70,14 @@ function initChart(link) {
 }
 
 $(document).ready(function() {
-	initChart($(".chart-nav a.selected"));
-	$(".chart-nav a").click(function() {
+	initChart($("#chart-nav a.selected"));
+	$("#chart-nav a").click(function() {
 		if ($(this).attr('href') == '/metrics') {
 			updateLock = false;
 		} else {
 			updateLock = true;
 		}
-
-		$(".chart-nav a.selected").removeClass('selected');
+		$("#chart-nav a.selected").removeClass('selected');
 		$(this).addClass('selected');
 		initChart($(this));
 		return false;

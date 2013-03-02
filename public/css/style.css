@@ -3,7 +3,8 @@ a:visited {}
 body {
 /*  width: 800px;
   margin: 10px auto 0 auto;
-  font-family: courier;*/
+*/
+  font-family: courier;
   background-color:#ECECE7;
 }
 
@@ -75,7 +76,7 @@ table#queue-summary td.time-label {
 	font-weight: bold;
 }
 
-.chart-nav {
+.time-selection {
 	font-size: 10px;
 	float:right;
 }

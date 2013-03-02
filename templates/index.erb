@@ -20,7 +20,7 @@
 	<div class="container">
 		<section id="throughput-metrics">
 			<span>Throughput</span>
-			<div class="chart-nav">
+			<div id="chart-nav" class="time-selection">
 				<a class="selected" href="/metrics">Realtime</a>
 				<a href="/metrics?limit=hour">Hour</a>
 				<a href="/metrics?limit=day">Day</a>
@@ -28,23 +28,33 @@
 			<hr />
 			<div class="chart"></div>
 		</section>
-		<div class="row">
-			<div class="span12">
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>Timestamp</th>
-							<th>Job</th>
-							<th>Parameters</th>
-							<th>Error</th>
-							<th>Message</th>
-						<tr>
-					</thead>
-					<tbody>
-					</tbody>
-				</table>
+
+		<section id="job-manager">
+			<span>Errors</span>
+			<div id="manager-nav" class="time-selection">
+				<a class="selected" href="/jobs">Realtime</a>
+				<a href="/jobs?limit=hour">Hour</a>
+				<a href="/jobs?limit=day">Day</a>
 			</div>
-		</div>
+			<hr />
+			<div class="row">
+				<div class="span12">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Timestamp</th>
+								<th>Job</th>
+								<th>Parameters</th>
+								<th>Error</th>
+								<th>Message</th>
+							<tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
 	</div>
 </body>
 
