@@ -20,6 +20,15 @@ module KomradeApi
     set :public_folder, "./public"
     set :views, "./templates"
 
+    # Instrumentation
+    def self.route(verb, action, *)
+      condition {@instrument_action = [verb, action].join(" ")}
+      super
+    end
+    before {@start_request = Time.now}
+    after {log(measure: @instrument_action, val: (Time.now - @start_request))}
+
+
     helpers do
       def protected!
         unless authorized?
@@ -168,6 +177,8 @@ module KomradeApi
     def self.log(data, &blk)
       Utils.log({ns: "web"}.merge(data), &blk)
     end
+    def log(data, &blk); self.class.log(data, &blk);end
+
 
   end
 end
