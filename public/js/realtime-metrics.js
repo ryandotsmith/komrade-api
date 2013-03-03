@@ -7,6 +7,23 @@ var updateLock = false;
 
 function appendOne(data) {
 	var groups = _.groupBy(JSON.parse(data), 'action');
+	for (var i in chart.series) {
+		var s = chart.series[i];
+		// If we don't have any new data for the series
+		// then we should get it off the screen.
+		var metrics = groups[i];
+		if (_.isUndefined(metrics)) {
+			s.setData([]);
+		} else {
+			for (j in metrics) {
+				var metric = metrics[j];
+				s.addPoint([metric.time, metric.count],
+					false, //redraw
+					s.data.length > 60);
+			}
+		}
+	}
+	/*
 	for (var i in groups) {
 		var s = chart.series[i];
 		var metrics = groups[i];
@@ -17,6 +34,7 @@ function appendOne(data) {
 				s.data.length > 60);
 		}
 	}
+	*/
 	chart.redraw();
 }
 
