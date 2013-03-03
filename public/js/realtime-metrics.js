@@ -48,7 +48,7 @@ function newChartGetData(path) {
 			} else {
 				$.ajax({url: path, success: appendOne});
 			}
-		}, 1000);
+		}, 3000);
 	} else {
 		$.ajax({url: path, success: appendColl});
 	}
