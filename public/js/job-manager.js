@@ -20,6 +20,8 @@ function appendJobs(data) {
 			"<tr>" +
 			"<td>" + data[i].count + "</td>" +
 			"<td>" + data[i].last_created_at+ "</td>" +
+			"<td>" + _.escape(data[i].method) + "</td>" +
+			"<td>" + _.escape(data[i].args) + "</td>" +
 			"<tr>"
 		);
 
