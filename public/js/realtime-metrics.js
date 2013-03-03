@@ -19,7 +19,7 @@ function appendOne(data) {
 				var metric = metrics[j];
 				s.addPoint([metric.time, metric.count],
 					false, //redraw
-					s.data.length > 60);
+					s.data.length > 5);
 			}
 		}
 	}
