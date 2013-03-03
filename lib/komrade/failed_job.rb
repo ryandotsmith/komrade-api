@@ -11,7 +11,8 @@ module KomradeApi
         'from failed_jobs',
         'where queue = ?',
         "and created_at > now() - '1 #{period}'::interval",
-        'group by 1'].join(' ')
+        'group by 1',
+        'order by max(created_at) desc'].join(' ')
       KomradeApi.pg[s, qid].to_a.map do |j|
         payload = JSON.parse(j[:payload])
         j.merge(method: payload["method"], args: payload["args"])
