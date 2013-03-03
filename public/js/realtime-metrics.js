@@ -7,34 +7,19 @@ var updateLock = false;
 
 function appendOne(data) {
 	var groups = _.groupBy(JSON.parse(data), 'action');
+	var timeStamp = groups[0][0].time;
 	for (var i in chart.series) {
 		var s = chart.series[i];
-		// If we don't have any new data for the series
-		// then we should get it off the screen.
 		var metrics = groups[i];
 		if (_.isUndefined(metrics)) {
-			s.setData([]);
+			s.addPoint([timeStamp, 0], false, s.data.length > 60);
 		} else {
-			for (j in metrics) {
-				var metric = metrics[j];
-				s.addPoint([metric.time, metric.count],
-					false, //redraw
-					s.data.length > 5);
-			}
-		}
-	}
-	/*
-	for (var i in groups) {
-		var s = chart.series[i];
-		var metrics = groups[i];
-		for (j in metrics) {
-			var metric = metrics[j];
+			var metric = metrics[0];
 			s.addPoint([metric.time, metric.count],
 				false, //redraw
 				s.data.length > 60);
 		}
 	}
-	*/
 	chart.redraw();
 }
 
@@ -50,9 +35,9 @@ function appendColl(data) {
 }
 
 function newChartGetData(path) {
-	$.ajax({url: path, success: appendColl});
 	// If limit=X isn't in path, then we want realtime data.
 	if (path == '/metrics') {
+		$.ajax({url: path, success: appendOne});
 		setInterval(function(t) {
 			if (updateLock) {
 				clearInterval(t);
@@ -60,6 +45,8 @@ function newChartGetData(path) {
 				$.ajax({url: path, success: appendOne});
 			}
 		}, 1000);
+	} else {
+		$.ajax({url: path, success: appendColl});
 	}
 }
 
