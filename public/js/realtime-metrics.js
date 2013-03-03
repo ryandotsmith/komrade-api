@@ -7,7 +7,11 @@ var updateLock = false;
 
 function appendOne(data) {
 	var groups = _.groupBy(JSON.parse(data), 'action');
-	var timeStamp = groups[0][0].time;
+	if (_.isUndefined(groups[0])) {
+		console.log('unable to read metrics');
+		return;
+	}
+	var timeStamp = Date.parse(groups[0][0].time);
 	for (var i in chart.series) {
 		var s = chart.series[i];
 		var metrics = groups[i];
@@ -15,7 +19,7 @@ function appendOne(data) {
 			s.addPoint([timeStamp, 0], false, s.data.length > 60);
 		} else {
 			var metric = metrics[0];
-			s.addPoint([metric.time, metric.count],
+			s.addPoint([Date.parse(metric.time), metric.count],
 				false, //redraw
 				s.data.length > 60);
 		}
@@ -28,7 +32,7 @@ function appendColl(data) {
 	for (var i in metrics) {
 		var series = chart.series[i];
 		series.setData(_.map(metrics[i], function(d) {
-			return [d.time, d.count];
+			return [Date.parse(d.time), d.count];
 		}));
 	}
 	chart.redraw();
