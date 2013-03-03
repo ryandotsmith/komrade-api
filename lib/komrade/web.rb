@@ -84,7 +84,7 @@ module KomradeApi
       erb(:index)
     end
 
-    get "/metrics" do
+    get '/metrics' do
       halt 403, 'not logged in' unless session[:email]
       @queue = Queue.find(session[:queue_id])
       res = case params[:limit]
@@ -99,18 +99,18 @@ module KomradeApi
       body(JSON.dump(res))
     end
 
-    get "/failed_jobs/:timestamp" do
+    get '/failed-jobs' do
       halt 403, 'not logged in' unless session[:email]
-      failed_jobs = FailedJob.from(session[:queue_id], params[:timestamp].to_i / 1000)
+      res = FailedJob.aggregate(session[:queue_id], params[:limit])
       status(200)
+      body(JSON.dump(res))
+    end
 
-      body(JSON.dump(failed_jobs.map do |job|
-        {created_at: job[:created_at],
-         method: JSON.parse(job[:payload])["method"],
-         error: JSON.parse(job[:payload])["error"],
-         message: JSON.parse(job[:payload])["message"],
-         args: JSON.parse(job[:payload])["args"]}
-      end))
+    get '/jobs/:jid/failed-jobs' do
+      halt 403, 'not logged in' unless session[:email]
+      res = FailedJob.by_job(params[:jid])
+      status(200)
+      body(JSON.dump(res))
     end
 
     post '/sso/login' do

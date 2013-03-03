@@ -1,20 +1,27 @@
 $(document).ready(function() {
-	updateFailedJobRows(0)
-	setInterval('updateFailedJobRows(new Date().getTime() - 3000)', 3000)
+	populateJobs($("#job-manager-nav a.selected"));
+	$("#job-manager-nav a").click(function() {
+		$("#job-manager-nav a.selected").removeClass('selected');
+		$(this).addClass('selected');
+		populateJobs($(this));
+		return false;
+	});
 });
 
-function updateFailedJobRows(timestamp) {
-	$.getJSON('/failed_jobs/' + timestamp, function(d) {
-		$.each(d, function(i, data) {
-			$('table > tbody').append(
-				"<tr>" +
-				"<td>" + data.created_at + "</td>" +
-				"<td>" + data.method + "</td>" +
-				"<td>" + data.args + "</td>" +
-				"<td>" + data.error + "</td>" +
-				"<td>" + data.message + "</td>" +
-				"<tr>"
-			);
-		});
-	});
+function populateJobs(link) {
+	//Clean up the old chart.
+	$('#jobs-table > tbody').children().remove()
+	$.getJSON(link.attr('href'), appendJobs);
+}
+
+function appendJobs(data) {
+	for (i in data) {
+		$('#jobs-table > tbody').append(
+			"<tr>" +
+			"<td>" + data[i].count + "</td>" +
+			"<td>" + data[i].last_created_at+ "</td>" +
+			"<tr>"
+		);
+
+	}
 }
