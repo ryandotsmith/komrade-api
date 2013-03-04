@@ -15,12 +15,12 @@ function appendOne(data) {
 		var s = chart.series[i];
 		var metrics = groups[i];
 		if (_.isUndefined(metrics)) {
-			s.addPoint([timeStamp, 0], false, s.data.length > 12);
+			s.addPoint([timeStamp, 0], false, s.data.length > 60);
 		} else {
 			var metric = metrics[0];
 			s.addPoint([Date.parse(metric.time), metric.count],
 				false, //redraw
-				s.data.length > 12);
+				s.data.length > 60);
 		}
 	}
 	chart.redraw();
@@ -47,7 +47,7 @@ function newChartGetData(path) {
 			} else {
 				$.ajax({url: path, success: appendOne});
 			}
-		}, 5000);
+		}, 1000);
 	} else {
 		$.ajax({url: path, success: appendColl});
 	}
