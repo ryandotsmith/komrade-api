@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	setInterval(updateSummary, 5000);
+	updateSummary();
 });
 
 function updateSummary() {
@@ -12,4 +12,5 @@ function updateSummary() {
 			append(an({name: data.app_name})).
 			append(ql({length: data.queue_length}));
 	});
+	setTimeout(updateSummary, 5000);
 }
