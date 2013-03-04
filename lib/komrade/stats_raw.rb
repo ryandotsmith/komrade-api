@@ -20,7 +20,7 @@ module KomradeApi
     def aggregate(qid, limit=1)
       s=['select now() as time, action, count(*)',
         'from stat_raw',
-        "where queue = ? and time >= now() - '#{limit} minutes'::interval",
+        "where queue = ? and time >= now() - '#{limit} seconds'::interval",
         'group by 1, 2'].join(' ')
       KomradeApi.stats_pg[s, qid].to_a
     end
