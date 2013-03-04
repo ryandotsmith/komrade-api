@@ -16,12 +16,12 @@ function appendOne(data) {
 		var s = chart.series[i];
 		var metrics = groups[i];
 		if (_.isUndefined(metrics)) {
-			s.addPoint([timeStamp, 0], false, s.data.length > 60);
+			s.addPoint([timeStamp, 0], false, s.data.length > 12);
 		} else {
 			var metric = metrics[0];
 			s.addPoint([Date.parse(metric.time), metric.count],
 				false, //redraw
-				s.data.length > 60);
+				s.data.length > 12);
 		}
 	}
 	chart.redraw();
