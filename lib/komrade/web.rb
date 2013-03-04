@@ -28,6 +28,11 @@ module KomradeApi
     before {@start_request = Time.now}
     after {log(measure: @instrument_action, val: (Time.now - @start_request))}
 
+    #Always include server time in response
+    before do
+      t = KomradeApi.pg["select now()"].get.to_s
+      headers("X_SERVER_TIME" => t)
+    end
 
     helpers do
       def protected!

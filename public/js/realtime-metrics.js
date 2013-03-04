@@ -5,9 +5,9 @@ var chart;
 // However, when you are in hour or day mode you don't want updates.
 var updateLock = false;
 
-function appendOne(data) {
+function appendOne(data, status, request) {
 	var groups = _.groupBy(JSON.parse(data), 'action');
-	var timeStamp = Date.now();
+	var timeStamp = Date.parse(request.getResponseHeader("X_SERVER_TIME"));
 	if (groups.length == 0) {
 		timeStamp = Date.parse(groups[0][0].time);
 	}
