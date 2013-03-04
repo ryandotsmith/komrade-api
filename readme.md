@@ -10,6 +10,6 @@ $ bundle install
 $ dropdb komrade
 $ createdb komrade
 $ pg_dump $(heroku config -a komrade-store -s | grep "^DATABASE_URL" | sed 's/DATABASE_URL=//') -s --no-acl --no-owner | psql komrade
-$ psql komrade -c "insert into queues (heroku_id) values (`whoami`);"
+$ psql komrade -c "insert into queues (heroku_id) values ('`whoami`');"
 $ bundle exec bin/web
 ```
