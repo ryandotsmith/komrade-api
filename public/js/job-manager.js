@@ -16,7 +16,11 @@ function populateJobs(link) {
 
 function appendJobs(data) {
 	if (data.length == 0) {
-		console.log('no jobs');
+		$('#jobs-table > tbody').append(
+			"<tr>" +
+			"<td collspan=4>No errors during this period.</td>" +
+			"<tr>"
+		);
 	} else {
 		for (i in data) {
 			$('#jobs-table > tbody').append(
