@@ -8,7 +8,7 @@ Highcharts.theme = {
 		spacingTop: 20
 	},
 	plotOptions: {
-		line: {marker: {enabled: false}}
+		line: {marker: {enabled: false, symbol: "circle"}}
 	}
 };
 
