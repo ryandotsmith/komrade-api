@@ -3,8 +3,8 @@ $(document).ready(function() {
 });
 
 function updateSummary() {
-	var an = _.template("<span>App: <%=name%></span>");
-	var ql = _.template("<span>Queue Length: <%=length%></span>");
+	var an = _.template("<span>App: <strong><%=name%></strong></span>");
+	var ql = _.template("<span>Queue Length: <strong><%=length%></strong></span>");
 
 	$.getJSON("/summary", function(data) {
 		$("#queue-summary").children().remove();
