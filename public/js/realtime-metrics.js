@@ -7,11 +7,10 @@ var updateLock = false;
 
 function appendOne(data) {
 	var groups = _.groupBy(JSON.parse(data), 'action');
-	if (_.isUndefined(groups[0])) {
-		console.log('unable to read metrics');
-		return;
+	var timeStamp = Date.now();
+	if (groups.length == 0) {
+		timeStamp = Date.parse(groups[0][0].time);
 	}
-	var timeStamp = Date.parse(groups[0][0].time);
 	for (var i in chart.series) {
 		var s = chart.series[i];
 		var metrics = groups[i];
