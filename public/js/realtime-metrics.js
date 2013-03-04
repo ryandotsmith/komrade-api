@@ -66,6 +66,10 @@ function initChart(link) {
 			type: 'line',
 			events: {load: function(){newChartGetData(path)}}
 		},
+		tooltip: {
+			xDateFormat: '%Y-%m-%d %H:%M:%S',
+			shared: true
+		},
 		title: {text: null},
 		xAxis: {type: 'datetime',labels: {enabled: false}},
 		yAxis: {min: 0, title: {text: null}},
