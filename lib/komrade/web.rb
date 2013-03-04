@@ -84,6 +84,14 @@ module KomradeApi
       erb(:index)
     end
 
+    get '/summary' do
+      halt 403, 'not logged in' unless session[:email]
+      @queue = Queue.find(session[:queue_id])
+      @app = Heroku.get_app(@queue[:callback_url])
+      status(200)
+      body(JSON.dump({app_name: @app['name'], queue_length: @queue[:length]}))
+    end
+
     get '/metrics' do
       halt 403, 'not logged in' unless session[:email]
       @queue = Queue.find(session[:queue_id])

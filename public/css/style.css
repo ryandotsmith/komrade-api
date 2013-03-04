@@ -1,11 +1,12 @@
 a:visited {}
 
 body {
-/*  width: 800px;
-  margin: 10px auto 0 auto;
-*/
   font-family: courier;
   background-color:#ECECE7;
+}
+
+section {
+  margin-bottom: 10px;
 }
 
 h1 {
@@ -31,45 +32,9 @@ a:hover {
 }
 
 hr {
+  margin: 0;
   border: 0.1em solid gray;
   color: black;
-}
-
-section#queue-details {
-  border-top: 1px solid black;
-}
-
-table#queue-summary {
-  table-layout: fixed;
-  width: 500px;
-}
-
-table#queue-summary td {
-  font-size: 2.2em;
-  height: 20px;
-  text-align: center;
-  color:#0F3D48;
-}
-
-table#queue-summary td.red {
-  color:#E96151;
-}
-
-table#queue-summary td span {
-  font-size: 0.8em;
-}
-
-table#queue-summary td.label {
-  width: 50px;
-  font-size: 0.6em;
-  text-align: center;
-  color:#366774;
-}
-
-table#queue-summary td.time-label {
-  text-align: center;
-  font-size: 0.5em;
-  padding-bottom: 20px;
 }
 
 .selected {
@@ -80,3 +45,5 @@ table#queue-summary td.time-label {
 	font-size: 10px;
 	float:right;
 }
+
+
