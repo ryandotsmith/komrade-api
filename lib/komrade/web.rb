@@ -109,7 +109,7 @@ module KomradeApi
 
     get '/failed-jobs' do
       halt 403, 'not logged in' unless session[:email]
-      res = FailedJob.aggregate(session[:queue_id], params[:limit])
+      res = FailedJob.aggregate(session[:queue_id], 20, 0, params[:resolution])
       status(200)
       body(JSON.dump(res))
     end

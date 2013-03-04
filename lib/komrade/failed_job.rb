@@ -5,15 +5,16 @@ module KomradeApi
   module FailedJob
     extend self
 
-    def aggregate(qid, period=nil)
-      period ||= 'hour'
+    def aggregate(qid, limit, offset, resolution=nil)
+      resolution ||= 'hour'
       s=['select job_id, first(job_payload) as payload, max(created_at) as last_created_at, count(*)',
         'from failed_jobs',
         'where queue = ?',
-        "and created_at > now() - '1 #{period}'::interval",
+        "and created_at > now() - '1 #{resolution}'::interval",
         'group by 1',
-        'order by max(created_at) desc'].join(' ')
-      KomradeApi.pg[s, qid].to_a.map do |j|
+        'order by max(created_at) desc',
+        'limit ? offset ?'].join(' ')
+      KomradeApi.pg[s, qid, limit, offset].to_a.map do |j|
         payload = JSON.parse(j[:payload])
         j.merge(method: payload["method"], args: payload["args"])
       end

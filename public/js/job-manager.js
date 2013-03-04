@@ -1,3 +1,10 @@
+//Scroll Detection
+$(window).scroll(function(){
+	if ($(window).scrollTop() == $(document).height() - $(window).height()){
+		console.log('load more jobs');
+	}
+});
+
 $(document).ready(function() {
 	populateJobs($("#job-manager-nav a.selected"));
 	$("#job-manager-nav a").click(function() {
