@@ -15,15 +15,18 @@ function populateJobs(link) {
 }
 
 function appendJobs(data) {
-	for (i in data) {
-		$('#jobs-table > tbody').append(
-			"<tr>" +
-			"<td>" + data[i].count + "</td>" +
-			"<td>" + data[i].last_created_at+ "</td>" +
-			"<td>" + _.escape(data[i].method) + "</td>" +
-			"<td>" + _.escape(data[i].args) + "</td>" +
-			"<tr>"
-		);
-
+	if (data.length == 0) {
+		console.log('no jobs');
+	} else {
+		for (i in data) {
+			$('#jobs-table > tbody').append(
+				"<tr>" +
+				"<td>" + data[i].count + "</td>" +
+				"<td>" + data[i].last_created_at+ "</td>" +
+				"<td>" + _.escape(data[i].method) + "</td>" +
+				"<td>" + _.escape(data[i].args) + "</td>" +
+				"<tr>"
+			);
+		}
 	}
 }
