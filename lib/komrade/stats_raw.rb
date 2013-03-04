@@ -17,12 +17,12 @@ module KomradeApi
       KomradeApi.stats_pg[s, qid, action, maxid, time].to_a
     end
 
-    def aggregate(qid, time=Time.now.to_i)
+    def aggregate(qid, limit=1)
       s=['select now() as time, action, count(*)',
         'from stat_raw',
-        'where queue = ? and time > ?',
+        "where queue = ? and time >= now() - '#{limit} minutes'::interval",
         'group by 1, 2'].join(' ')
-      KomradeApi.stats_pg[s, qid, time].to_a
+      KomradeApi.stats_pg[s, qid].to_a
     end
 
   end
