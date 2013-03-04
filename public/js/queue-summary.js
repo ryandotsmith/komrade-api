@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	setInterval(updateSummary, 1000);
+	setInterval(updateSummary, 5000);
 });
 
 function updateSummary() {
