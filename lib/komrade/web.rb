@@ -101,7 +101,7 @@ module KomradeApi
       when 'day'
         StatsHour.aggregate(@queue[:token])
       else
-        StatsRaw.aggregate(@queue[:token])
+        StatsRaw.aggregate(@queue[:token], 5)
       end
       status(200)
       body(JSON.dump(res))

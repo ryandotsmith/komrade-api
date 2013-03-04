@@ -12,5 +12,5 @@ function updateSummary() {
 			append(an({name: data.app_name})).
 			append(ql({length: data.queue_length}));
 	});
-	setTimeout(updateSummary, 1000);
+	setTimeout(updateSummary, 5000);
 }
