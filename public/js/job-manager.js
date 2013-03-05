@@ -6,9 +6,9 @@ $(window).scroll(function(){
 });
 
 $(document).ready(function() {
-	populateJobs($("#job-manager-nav a.selected"));
-	$("#job-manager-nav a").click(function() {
-		$("#job-manager-nav a.selected").removeClass('selected');
+	populateJobs($("#time-selector a.selected"));
+	$("#time-selector a").click(function() {
+		$("#time-selector a.selected").removeClass('selected');
 		$(this).addClass('selected');
 		populateJobs($(this));
 		return false;
@@ -18,7 +18,9 @@ $(document).ready(function() {
 function populateJobs(link) {
 	//Clean up the old chart.
 	$('#jobs-table > tbody').children().remove()
-	$.getJSON(link.attr('href'), appendJobs);
+	var path = '/failed-jobs?resolution=' + link.data('resolution');
+	console.log(path);
+	$.getJSON(path, appendJobs);
 }
 
 function appendJobs(data) {

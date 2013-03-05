@@ -63,6 +63,11 @@ module KomradeApi
     end
 
     if Conf.development_mode?
+      module Heroku
+        def self.get_app(*args)
+          {"name" => "hello-world"}
+        end
+      end
       before do
         session[:email] = 'dev@komrade.io'
         session[:queue_id] = ENV["QUEUE_TOKEN"] || Queue.first[:token]
@@ -100,13 +105,17 @@ module KomradeApi
     get '/metrics' do
       halt 403, 'not logged in' unless session[:email]
       @queue = Queue.find(session[:queue_id])
-      res = case params[:limit]
+      res = case params[:resolution]
       when 'hour'
         StatsMin.aggregate(@queue[:token])
       when 'day'
         StatsHour.aggregate(@queue[:token])
-      else
+      when 'second'
         StatsRaw.aggregate(@queue[:token], 5)
+      else
+        status(404)
+        body(JSON.dump({msg: "Resolution not found."}))
+        return
       end
       status(200)
       body(JSON.dump(res))

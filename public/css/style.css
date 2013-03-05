@@ -49,3 +49,7 @@ hr {
 #queue-summary span {
   padding-right: 15px;
 }
+
+#time-selector {
+  float:right;
+}

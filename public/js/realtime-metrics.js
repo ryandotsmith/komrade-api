@@ -39,7 +39,7 @@ function appendColl(data) {
 
 function newChartGetData(path) {
 	// If limit=X isn't in path, then we want realtime data.
-	if (path == '/metrics') {
+	if (path == '/metrics?resolution=second') {
 		$.ajax({url: path, success: appendOne});
 		setInterval(function(t) {
 			if (updateLock) {
@@ -55,9 +55,11 @@ function newChartGetData(path) {
 
 function initChart(link) {
 	//Clean up the old chart.
-	var path = link.attr('href');
-	var container = link.parent().parent();
-	container.find('.chart').remove()
+	var path = '/metrics';
+	path += '?resolution=' + link.data('resolution');
+	console.log(path);
+	var container = $("#throughput-metrics")
+	container.find('.chart').remove();
 	var elt = $('<div class="chart">').appendTo(container);
 	chart = new Highcharts.Chart({
 		chart: {
@@ -82,14 +84,14 @@ function initChart(link) {
 }
 
 $(document).ready(function() {
-	initChart($("#chart-nav a.selected"));
-	$("#chart-nav a").click(function() {
-		if ($(this).attr('href') == '/metrics') {
+	initChart($("#time-selector a.selected"));
+	$("#time-selector a").click(function() {
+		if ($(this).data('resolution') == 'second') {
 			updateLock = false;
 		} else {
 			updateLock = true;
 		}
-		$("#chart-nav a.selected").removeClass('selected');
+		$("#time-selector a.selected").removeClass('selected');
 		$(this).addClass('selected');
 		initChart($(this));
 		return false;

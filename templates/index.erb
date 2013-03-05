@@ -17,27 +17,24 @@
 
 <body>
 	<div class="container">
-		<section id="queue-summary"></section>
+		<div class="row">
+			<section id="queue-summary" class="span9"></section>
+			<section id="time-selector" class="span3">
+				<a data-resolution="second">Realtime</a>
+				<a data-resolution="hour" class="selected">Hour</a>
+				<a data-resolution="day">Day</a>
+				<a data-resolution="week">Week</a>
+			</section>
+		</div>
 
 		<section id="throughput-metrics">
 			<span>Throughput</span>
-			<div id="chart-nav" class="time-selection">
-				<a href="/metrics">Realtime</a>
-				<a href="/metrics?limit=hour" class="selected" >Hour</a>
-				<a href="/metrics?limit=day">Day</a>
-			</div>
 			<hr />
 			<div class="chart"></div>
 		</section>
 
 		<section id="job-manager">
 			<span>Errors</span>
-			<div id="job-manager-nav" class="time-selection">
-				<a class="selected" href="/failed-jobs?resolution=hour">Hour</a>
-				<a href="/failed-jobs?resolution=day">Day</a>
-				<a href="/failed-jobs?resolution=week">Week</a>
-				<a href="/failed-jobs?resolution=month">Month</a>
-			</div>
 			<hr />
 			<div class="row">
 				<div class="span12">
