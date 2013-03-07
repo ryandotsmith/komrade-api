@@ -17,42 +17,28 @@
 
 <body>
 	<div class="container">
-		<div class="row">
-			<section id="queue-summary" class="span9"></section>
-			<section id="time-selector" class="span3">
-				<a data-resolution="second">Realtime</a>
-				<a data-resolution="hour" class="selected">Hour</a>
-				<a data-resolution="day">Day</a>
-				<a data-resolution="week">Week</a>
-			</section>
-		</div>
 
+		<div class="page-header clearfix">
+		  <h3 class="pull-left">Throughput</h3>
+			<ul id="time-selector" class="nav nav-pills pull-right">
+				<li><a data-resolution="second">Realtime</a></li>
+				<li class="active"><a data-resolution="hour">Hour</a></li>
+				<li><a data-resolution="day">Day</a></li>
+				<li><a data-resolution="week">Week</a></li>
+			</ul>
+		</div>
 		<section id="throughput-metrics">
-			<span>Throughput</span>
-			<hr />
 			<div class="chart"></div>
 		</section>
 
 		<section id="job-manager">
-			<span>Errors</span>
-			<hr />
+			<div class="page-header">
+				<h3>Errors</h3>
+			</div>
 			<div class="row">
 				<div class="span12">
-					<table id="jobs-table" class="table table-hover">
-						<!--
-						<thead>
-							<tr>
-								<th>Timestamp</th>
-								<th>Job</th>
-								<th>Parameters</th>
-								<th>Error</th>
-								<th>Message</th>
-							<tr>
-						</thead>
-						-->
-						<tbody>
-						</tbody>
-					</table>
+					<ul id="jobs-table" class="unstyled">
+					</ul>
 				</div>
 			</div>
 		</section>

@@ -84,15 +84,15 @@ function initChart(link) {
 }
 
 $(document).ready(function() {
-	initChart($("#time-selector a.selected"));
+	initChart($("#time-selector li.active a"));
 	$("#time-selector a").click(function() {
 		if ($(this).data('resolution') == 'second') {
 			updateLock = false;
 		} else {
 			updateLock = true;
 		}
-		$("#time-selector a.selected").removeClass('selected');
-		$(this).addClass('selected');
+		$("#time-selector li.active").removeClass('active');
+		$(this).parent().addClass('active');
 		initChart($(this));
 		return false;
 	});

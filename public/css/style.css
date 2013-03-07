@@ -1,8 +1,7 @@
 a:visited {}
 
 body {
-  font-family: courier;
-  background-color:#ECECE7;
+ /* background-color:#ECECE7;*/
 }
 
 section {
@@ -37,19 +36,39 @@ hr {
   color: black;
 }
 
-.selected {
-	font-weight: bold;
-}
-
 .time-selection {
 	font-size: 10px;
 	float:right;
 }
 
-#queue-summary span {
-  padding-right: 15px;
+#time-selector {
+  margin-top: 8px;
+  margin-bottom: 0;
 }
 
-#time-selector {
-  float:right;
+h3 {
+  line-height: 27px;
+  font-size: 18px;
 }
+
+.page-header {
+  padding: 0;
+}
+
+#jobs-table li {
+  border-bottom: thin solid #ddd;
+  padding: 10px 0;
+}
+
+#jobs-table .date {
+  font-size: 12px;
+}
+
+h4 {
+  margin: 5px 0;
+  padding: 0;
+}
+
+button {
+  margin-right: 5px;
+  }
