@@ -79,8 +79,7 @@ module KomradeApi
       @customers = Queue.all.map do |q|
         {
           app: Heroku.get_app(q[:callback_url]),
-          queue: q,
-          stats: Stats.all(q[:token])
+          queue: q
         }
       end.reject {|h| h[:app].nil?}
       erb(:admin)
